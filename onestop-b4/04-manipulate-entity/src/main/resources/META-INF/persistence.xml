@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="man-en" transaction-type="RESOURCE_LOCAL">
+		<mapping-file>META-INF/ormDemo.xml</mapping-file>
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/os4_jpa"/>
+			<property name="javax.persistence.jdbc.user" value="os4user"/>
+			<property name="javax.persistence.jdbc.password" value="P@ss4os4"/>
+			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="javax.persistence.sql-load-script-source" value="/META-INF/init.sql"/>
+		</properties>
+	</persistence-unit>
+</persistence>
