@@ -11,6 +11,29 @@ import org.junit.jupiter.api.Test;
 public class StringTest {
 	
 	@Test
+	void test_for_mutable_string() {
+		
+		var sb = new StringBuilder();
+		sb.append("Good Things");
+		System.out.println(sb);
+		System.out.println("Capacity: " + sb.capacity());
+		System.out.println("Length: " + sb.length());
+		System.out.println();
+
+		sb.append(" Shoudn't be us");
+		System.out.println(sb);
+		System.out.println("Capacity: " + sb.capacity()); // (capicity + 1) * 2
+		System.out.println("Length: " + sb.length());
+		System.out.println();
+		
+		sb.append("Where have you been?");
+		System.out.println(sb);
+		System.out.println("Capacity: " + sb.capacity()); // (capicity + 1) * 2
+		System.out.println("Length: " + sb.length());
+		System.out.println();
+	}
+	
+	@Test
 	void test() {
 		
 		String s1 = "Hello";
