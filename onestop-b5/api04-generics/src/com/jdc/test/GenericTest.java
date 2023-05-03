@@ -2,6 +2,7 @@ package com.jdc.test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,10 +14,21 @@ import com.jdc.generic.SubPair;
 
 public class GenericTest {
 	
+	public GenericTest() {System.out.println("Test Constructor");}
+//	public <K, V> GenericTest(Pair<K, V> p1, Pair<K, V> p2) {}
+	
+	<K, V> boolean compair(Pair<K, V> p1, Pair<K, V> p2) {
+		return p1.getKey().equals(p2.getKey()) && p1.getValue().equals(p2.getValue());
+	}
+	
 	@Test
 	void test_for_multiple_type() {
 		Pair<String, Integer> p1 = new OrderPair<>("Apple", 2000);
 		Pair<Integer, Integer> p2 = new OrderPair<>(100, 100);
+		
+		Pair<String, Integer> p5 = new OrderPair<>("Orange", 2000);
+		
+		assertFalse(compair(p1, p5));
 		
 		Pair<Double, Double> p3 = new Pair<Double, Double>() {
 
