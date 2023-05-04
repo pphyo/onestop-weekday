@@ -1,5 +1,7 @@
 package com.jdc.dynamic;
 
+import java.util.Arrays;
+
 public class UnlimitedArray<T> implements Array<T> {
 
 	private Object[] array = new Object[0];
@@ -23,14 +25,40 @@ public class UnlimitedArray<T> implements Array<T> {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public int deleteFirst() {
-		return 0;
+	public T deleteFirst() {
+		if(array.length == 0)
+			throw new IllegalArgumentException("No data in array!");
+
+		var result = array[0];
+		
+		Object[] temp = new Object[array.length - 1];
+		
+		for(int i = 0; i < temp.length; i++)
+			temp[i] = array[i + 1];
+		
+		array = temp;
+		
+		return (T) result;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public int deleteLast() {
-		return 0;
+	public T deleteLast() {
+		if(array.length == 0)
+			throw new IllegalArgumentException("No data in array!");
+		
+		var result = array[array.length - 1];
+		
+		Object[] temp = new Object[array.length - 1];
+		
+		for(int i = 0; i < temp.length; i++)
+			temp[i] = array[i];
+		
+		array = temp;
+		
+		return (T) result;
 	}
 
 	@Override
@@ -39,7 +67,12 @@ public class UnlimitedArray<T> implements Array<T> {
 	}
 	
 	public int size() {
-		return this.array.length;
+		return array.length;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T[] getArray() {
+		return (T[]) Arrays.copyOf(array, array.length);
 	}
 
 }

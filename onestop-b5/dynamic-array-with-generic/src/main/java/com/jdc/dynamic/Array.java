@@ -12,10 +12,10 @@ public interface Array<T> {
 	boolean insert(T data);
 	
 	// delete first element
-	int deleteFirst();
+	T deleteFirst();
 	
 	// delete last element
-	int deleteLast();
+	T deleteLast();
 	
 	// delete at specific index
 	int delete(int index);
