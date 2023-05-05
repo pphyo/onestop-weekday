@@ -61,9 +61,30 @@ public class UnlimitedArray<T> implements Array<T> {
 		return (T) result;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public int delete(int index) {
-		return 0;
+	public T delete(int index) {
+		if(array.length == 0)
+			throw new IllegalArgumentException("No data in array!");
+		
+		var result = array[index];
+		
+		Object[] temp = new Object[array.length - 1];
+		
+		for(int i = 0; i < array.length; i++) {
+			if(i == index)
+				continue;
+			
+			if(i < index)
+				temp[i] = array[i];
+			
+			if(i > index)
+				temp[i - 1] = array[i];
+		}
+		
+		array = temp;
+
+		return (T) result;
 	}
 	
 	public int size() {

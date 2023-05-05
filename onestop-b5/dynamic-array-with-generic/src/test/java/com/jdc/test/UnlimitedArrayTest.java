@@ -16,6 +16,37 @@ import com.jdc.dynamic.UnlimitedArray;
 public class UnlimitedArrayTest {
 	
 	@Test
+	void test_for_delete() {
+		var arr = new UnlimitedArray<Integer>();
+		assertThrows(IllegalArgumentException.class, () -> arr.delete(10));
+		
+		arr.insert(100);
+		arr.insert(200);
+		arr.insert(300);
+		arr.insert(400);
+		arr.insert(500);
+				
+		assertEquals(5, arr.size());
+		assertArrayEquals(new Integer[] {100, 200, 300, 400, 500}, arr.getArray());
+		
+		var firstDelete = arr.delete(0);
+		assertEquals(100, firstDelete);
+		assertEquals(4, arr.size());
+		assertArrayEquals(new Integer[] {200, 300, 400, 500}, arr.getArray());
+
+		var lastDelete = arr.delete(3);
+		assertEquals(500, lastDelete);
+		assertEquals(3, arr.size());
+		assertArrayEquals(new Integer[] {200, 300, 400}, arr.getArray());
+		
+		var delete = arr.delete(1);
+		assertEquals(300, delete);
+		assertEquals(2, arr.size());
+		assertArrayEquals(new Integer[] {200, 400}, arr.getArray());
+	}
+	
+	@Test
+	@Disabled
 	void test_for_delete_first_element() {
 
 		var arr = new UnlimitedArray<Integer>();

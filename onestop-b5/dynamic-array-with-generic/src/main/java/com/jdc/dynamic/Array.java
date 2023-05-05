@@ -7,7 +7,7 @@ package com.jdc.dynamic;
  */
 
 public interface Array<T> {
-	
+		
 	// insert
 	boolean insert(T data);
 	
@@ -18,7 +18,7 @@ public interface Array<T> {
 	T deleteLast();
 	
 	// delete at specific index
-	int delete(int index);
+	T delete(int index);
 	
 
 }
