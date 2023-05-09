@@ -7,12 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -22,10 +23,49 @@ import org.junit.jupiter.api.Test;
 public class CollectionTest {
 	
 	@Test
+	void test_for_map() {
+		
+		var hm = new HashMap<String, String>();
+		hm.put("Thai", "Bangkok");
+		hm.put("Indonesia", "Jakarta");
+		hm.put("Phillipine", "Manila");
+		hm.put("Myanmar", "Yangon");
+		hm.put("China", "Beijin");
+		hm.put("Korea", "Souel");
+		hm.put("Japan", "Kyoto");
+		hm.put("Japan", "Tokyo");
+		hm.put("Cambodia", "Tokyo");
+		
+		hm.remove("China");
+		hm.remove("Korea", "Souel");
+		hm.replace("Myanmar", "Naypyidaw");
+		
+		assertTrue(hm.containsKey("Myanmar"));
+		assertFalse(hm.containsKey("Laos"));
+		assertTrue(hm.containsValue("Tokyo"));
+		assertFalse(hm.containsValue("Hong Kong"));
+		assertEquals("Naypyidaw", hm.get("Myanmar"));
+		
+		Set<Entry<String, String>> entrySet = hm.entrySet();
+		
+		for(Entry<String, String> entry : entrySet) {
+			System.out.println(entry.getKey() + ": " + entry.getValue());
+		}
+		
+		System.out.println(hm.keySet());
+		
+		System.out.println(hm.values());
+		
+		System.out.println(hm);
+		
+	}
+	
+	@Test
+	@Disabled
 	void test_for_queue() throws InterruptedException {
 		
-		Queue<Integer> priQue = new PriorityQueue<>();
-		Queue<Integer> que = new LinkedList<>();
+		PriorityQueue<Integer> priQue = new PriorityQueue<>();
+		LinkedList<Integer> que = new LinkedList<>();
 		
 		for(int i = 0; i < 10; i++) {
 			que.offer(i + 1);
