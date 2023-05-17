@@ -1,14 +1,12 @@
 package com.jdc.app;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class UsingGenericAndFuncInter {
 	
 	public static void main(String[] args) {
-		var list = Arrays.asList("", "", "");
 //		showStudentOver300Marks(getStudentList());
 		
 		showStudentWithCond(getStudentList(), s -> s.getAge() > 17);
