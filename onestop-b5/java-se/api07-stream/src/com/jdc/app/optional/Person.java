@@ -20,8 +20,8 @@ public class Person {
 //		if(null == insu) {
 //			return "Unknown";
 //		}
-		Car c = new Car();
-		car = Optional.ofNullable(null);
+//		Car c = new Car();
+//		car = Optional.ofNullable(null);
 		
 		return car;
 		
