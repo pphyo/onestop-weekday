@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>User Form</title>
+</head>
+<body>
+
+	<h2>User Information</h2>
+	
+	<form action="/save" method="post">
+		<table>
+			<tbody>
+				<tr>
+					<td>Name</td>
+					<td>
+						<input name="username" placeholder="Enter username" />
+					</td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td>
+						<input name="email" type="email" placeholder="Enter email" />
+					</td>
+				</tr>
+				<tr>
+					<td>Address</td>
+					<td>
+						<textarea rows="3" cols="auto" name="address" placeholder="Enter address"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" value="Save" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+
+</body>
+</html>
