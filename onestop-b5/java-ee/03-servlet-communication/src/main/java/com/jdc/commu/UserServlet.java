@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/save")
+@WebServlet({"/save", "/user-list"})
 public class UserServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -21,6 +21,12 @@ public class UserServlet extends HttpServlet {
 		list = new ArrayList<>();
 	}
 
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("list", list);
+		getServletContext().getRequestDispatcher("/user-list.jsp").forward(req, resp);
+	}
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -35,49 +41,51 @@ public class UserServlet extends HttpServlet {
 		
 		list.add(user);
 		
-		System.out.println(username);
-		System.out.println(email);
-		System.out.println(address);
+		resp.sendRedirect("/user-list");
 		
-		var writer = resp.getWriter();
+//		System.out.println(username);
+//		System.out.println(email);
+//		System.out.println(address);
 		
-		writer.append("""
-				<!DOCTYPE html>
-				<html>
-				<head>
-					<title>User List</title>
-				</head>
-				<body>
-				<h2>User Table</h2>
-				<table>
-				<thead>
-					<th>
-						<td>Name</td>
-						<td>Email</td>
-						<td>Address</td>
-					</th>
-				</thead>
-				<tbody>
-				""");
-		
-		for(User u : list) {
-			
-			writer.append("""
-					<tr>
-						<td>%s</td>
-						<td>%s</td>
-						<td>%s</td>
-					</tr>
-					""".formatted(u.getName(), u.getEmail(), u.getAddress()));
-			
-		}
-		
-		writer.append("""
-				</tbody>
-				</table>
-				</body>
-				</html>
-				""");
+//		var writer = resp.getWriter();
+//		
+//		writer.append("""
+//				<!DOCTYPE html>
+//				<html>
+//				<head>
+//					<title>User List</title>
+//				</head>
+//				<body>
+//				<h2>User Table</h2>
+//				<table>
+//				<thead>
+//					<th>
+//						<td>Name</td>
+//						<td>Email</td>
+//						<td>Address</td>
+//					</th>
+//				</thead>
+//				<tbody>
+//				""");
+//		
+//		for(User u : list) {
+//			
+//			writer.append("""
+//					<tr>
+//						<td>%s</td>
+//						<td>%s</td>
+//						<td>%s</td>
+//					</tr>
+//					""".formatted(u.getName(), u.getEmail(), u.getAddress()));
+//			
+//		}
+//		
+//		writer.append("""
+//				</tbody>
+//				</table>
+//				</body>
+//				</html>
+//				""");
 		
 	}
 	
