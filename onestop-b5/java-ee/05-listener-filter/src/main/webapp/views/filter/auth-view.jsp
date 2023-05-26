@@ -11,8 +11,8 @@
 
 	<h3>You have permission to access this page.</h3>
 	
-	<c:if test="${ not empty username }">
-		<p>Your user name is ${username}</p>
+	<c:if test="${ not empty user }">
+		<p>Your user name is ${user.get(0)}</p>
 	</c:if>
 	
 	<a href="/filter-view" style="margin-right:4px">Home</a>
