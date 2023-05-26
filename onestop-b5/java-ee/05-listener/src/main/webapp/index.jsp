@@ -12,6 +12,7 @@
 	<ul>
 		<li><a href="/cookie-view">Cookie Demo</a></li>
 		<li><a href="/listener-view">Listener Demo</a></li>
+		<li><a href="/filter-view">Filter Demo</a></li>
 	</ul>
 
 </body>

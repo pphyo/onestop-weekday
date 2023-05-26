@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet({
-	"/cookie-view", "/listener-view"
+	"/cookie-view", "/listener-view", "/filter-view"
 })
 public class ViewServlet extends HttpServlet {
 
@@ -24,7 +24,9 @@ public class ViewServlet extends HttpServlet {
 		if(path.equals("/cookie-view")) {
 			view = "/views/cookies.jsp";
 		} else if(path.equals("/listener-view")) {
-			view = "/views/litener.jsp";
+			view = "/views/listener.jsp";
+		} else {
+			view = "/views/filter/home.jsp";
 		}
 		
 		getServletContext().getRequestDispatcher(view).forward(req, resp);
