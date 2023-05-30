@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <div class="container">
+    <a [routerLink]="['/']" class="navbar-brand">Angular Form</a>
+
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a [routerLink]="['/template']" routerLinkActive="active" class="nav-link">template</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/reactive']" routerLinkActive="active" class="nav-link">Reactive</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/dynamic']" routerLinkActive="active" class="nav-link">Dynamic</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <router-outlet></router-outlet>
+</div>

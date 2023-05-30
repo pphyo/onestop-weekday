@@ -1,0 +1,14 @@
+<div class="container mt-4">
+
+  <h2 class="text-seconday">{{ title }}</h2>
+
+
+  <div class="row mb-3">
+
+    <app-child [childCount]="parentCount"></app-child>
+
+  </div>
+
+  <button (click)="countUp()" class="btn btn-outline-primary">Count Up</button>
+
+</div>

@@ -1,0 +1,23 @@
+<div class="row mb-3 justify-content-center">
+  <h2 class="text-center">Two Way Data Binding</h2>
+  <div class="col-6 mt-3">
+    <label for="inpText" class="form-label">Input Text</label>
+    <input #inpText [value]="inpText.value"
+        (input)="text = inpText.value; text2 = inpText.value" type="text"
+        name="inpText" id="inpText" class="form-control mb-3">
+
+    <p>{{ text }}</p>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <h2 class="text-center">Two Way Data Binding With NgModel</h2>
+
+  <div class="col-6 mt-3">
+    <label for="inpText2" class="form-label">Input Text</label>
+    <input [(ngModel)]="text2" type="text"
+        name="inpText" id="inpText" class="form-control mb-3">
+
+    <p>{{ text2 }}</p>
+  </div>
+</div>

@@ -1,0 +1,1 @@
+insert into account (name, amount) values ('Phway Phway', 100000);

@@ -1,0 +1,82 @@
+<form #form="ngForm" (ngSubmit)="save(form)">
+
+  <div class="card">
+
+    <div class="card-header">
+      <h2 class="text-danger">Student Input</h2>
+    </div>
+
+    <div class="card-body">
+
+      <div class="row mb-3">
+
+        <div class="col-4">
+          <label for="name" class="form-label">Name</label>
+          <input #stuName="ngModel" type="text" [(ngModel)]="model.name" name="name" id="name" class="form-control"
+            placeholder="Enter student name">
+          <div *ngIf="!stuName.valid && (stuName.touched || stuName.dirty)">
+            <p class="text-danger">Name Input Error!</p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="row" ngModelGroup="contact">
+            <div class="col">
+              <label for="phone" class="form-label">Phone</label>
+              <input type="tel" [(ngModel)]="model.contact.phone" name="phone" id="phone" class="form-control"
+                placeholder="Enter phone no">
+            </div>
+            <div class="col">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" [(ngModel)]="model.contact.email" name="email" id="email" class="form-control"
+                placeholder="Enter email address">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div ngModelGroup="subjects" class="d-flex col-4">
+          <div *ngFor="let item of subjectList; index as i">
+            <input type="checkbox" [(ngModel)]="model.subjects[i]" [value]="item" [name]="'' + i" [id]="item"
+              class="form-check-control me-1">
+            <label [for]="item" class="form-label me-2">{{ item }}</label>
+          </div>
+        </div>
+      </div>
+
+      <input type="submit" value="Save" class="btn btn-primary">
+
+    </div>
+
+  </div>
+
+</form>
+
+<hr>
+
+<h3>Student Table</h3>
+
+<table class="table table-striped bg-light">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Phone</td>
+      <td>Email</td>
+      <td>Subjects</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of list">
+      <td>{{item.name}}</td>
+      <td>{{item.contact.phone}}</td>
+      <td>{{item.contact.email}}</td>
+      <td>{{item.subjects}}</td>
+      <td>
+        <a (click)="edit(item)" class="btn btn-outline-danger">Edit</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

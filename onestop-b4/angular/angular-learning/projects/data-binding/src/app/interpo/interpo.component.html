@@ -1,0 +1,35 @@
+<div class="row mb-3 align-items-center">
+
+  <div class="col">
+    <label for="text" class="form-label">Some Text</label>
+    <input #text type="text" class="form-control mb-3" id="text" placeholder="Enter text">
+    <input type="button" value="Click" class="btn btn-outline-success" (click)="add(text.value)">
+  </div>
+
+  <div class="col">
+    <div class="alert alert-success">{{ value ? value : 'There is no data' }}</div>
+  </div>
+
+</div>
+
+<div class="row align-items-center">
+  <div class="col">
+
+    <label for="color" class="form-label">Color</label>
+    <select #color name="color" id="color" class="form-control" (change)="0">
+      <option value="primary">Primary</option>
+      <option value="secondary">Secondary</option>
+      <option value="success">Success</option>
+      <option value="danger">Danger</option>
+      <option value="warning">Warning</option>
+      <option value="info">Info</option>
+    </select>
+
+  </div>
+
+  <div class="col">
+    <div class="alert alert-{{color.value}}">This is data</div>
+  </div>
+</div>
+
+
