@@ -10,7 +10,7 @@ local.properties
 .loadpath
 .recommenders
 
-node_modules
+/onestop-b4/angular/angular-learning/node_modules
 
 npm-debug.log
 yarn-error.log
