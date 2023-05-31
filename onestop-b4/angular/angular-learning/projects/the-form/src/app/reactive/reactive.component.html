@@ -1,20 +1,75 @@
-<div class="row">
-  <div class="col">
-    <form [formGroup]="form">
-      <label for="name" class="form-label">Name</label>
-      <input type="text" formControlName="name" id="name" class="form-control mb-3" placeholder="Enter name">
+<form [formGroup]="form">
 
-      <label for="phone" class="form-label">Phone</label>
-      <input type="tel" formControlName="phone" id="phone" class="form-control mb-3" placeholder="Enter name">
+  <div class="card">
 
-      <label for="email" class="form-label">Email</label>
-      <input type="email" formControlName="email" id="email" class="form-control" placeholder="Enter email">
+    <div class="card-header">
+      <h2 class="text-danger">Student Input</h2>
+    </div>
 
-      <input (click)="save()" type="submit" value="Save" class="btn btn-outline-primary">
-    </form>
+    <div class="card-body">
+
+      <div class="row mb-3">
+
+        <div class="col-4">
+          <label for="name" class="form-label">Name</label>
+          <input formControlName="name" type="text" id="name" class="form-control" placeholder="Enter student name">
+        </div>
+
+        <div class="col">
+          <div class="row" formGroupName="contact">
+            <div class="col">
+              <label for="phone" class="form-label">Phone</label>
+              <input type="tel" formControlName="phone" id="phone" class="form-control" placeholder="Enter phone no">
+            </div>
+            <div class="col">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" formControlName="email" id="email" class="form-control"
+                placeholder="Enter email address">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-4 d-flex" formArrayName="subjects">
+          <div *ngFor="let item of subjects.controls; index as i">
+            <div class="me-3">
+              <input type="checkbox" [formControlName]="i" id="item" class="form-check-control me-2">
+              <label for="item" class="form-label">{{subjectList[i]}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <input (click)="save()" type="submit" value="Save" class="btn btn-primary">
+
+    </div>
+
   </div>
-  <div class="col">
-    <h3>Form Value</h3>
-    <pre>{{ form.value | json }}</pre>
-  </div>
-</div>
+
+</form>
+
+<hr>
+
+<h3>Student Table</h3>
+
+<table class="table table-striped bg-light">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Phone</td>
+      <td>Email</td>
+      <td>Subjects</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of list">
+      <td>{{ item.name }}</td>
+      <td>{{ item.contact.phone }}</td>
+      <td>{{ item.contact.email }}</td>
+      <td>{{ item.subjects | subject }}</td>
+    </tr>
+  </tbody>
+</table>
