@@ -1,1 +1,18 @@
-<p>input-view works!</p>
+<h3>Input with @ViewChild()</h3>
+<div class="row">
+
+  <div class="col">
+    <div class="card">
+      <div class="card-header">Parent</div>
+      <div class="card-body">
+        <label for="inp" class="form-label">Input</label>
+        <input #inp type="text" name="inp" id="inp" class="form-control mb-2" placeholder="Enter input">
+        <button (click)="add(inp.value)" class="btn btn-outline-danger">Click</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <app-input-view-child></app-input-view-child>
+  </div>
+</div>

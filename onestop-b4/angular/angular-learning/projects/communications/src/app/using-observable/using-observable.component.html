@@ -1,1 +1,20 @@
-<p>using-observable works!</p>
+<h3 class="text-success">Passing Data from Child to Parent Using Observable</h3>
+
+<div class="row">
+
+  <div class="col">
+    <div class="card">
+      <div class="card-header">Parent</div>
+      <div class="card-body">
+        <ul class="list-group" *ngFor="let item of list">
+          <li class="list-group-item list-group-item-action">{{item}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <app-using-observable-child [emitter]="subject"></app-using-observable-child>
+  </div>
+
+</div>

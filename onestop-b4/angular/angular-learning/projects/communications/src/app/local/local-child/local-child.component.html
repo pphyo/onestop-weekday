@@ -1,1 +1,8 @@
-<p>local-child works!</p>
+<div class="card">
+  <div class="card-header">Child</div>
+  <div class="card-body">
+    <ol class="list-group" *ngFor="let item of list">
+      <li class="list-group-item list-group-item-action">{{ item }}</li>
+    </ol>
+  </div>
+</div>

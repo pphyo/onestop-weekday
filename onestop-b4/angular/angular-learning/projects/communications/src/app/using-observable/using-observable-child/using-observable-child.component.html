@@ -1,1 +1,8 @@
-<p>using-observable-child works!</p>
+<div class="card">
+  <div class="card-header">Child</div>
+  <div class="card-body">
+    <label for="val" class="form-label">Input</label>
+    <input #val type="text" name="val" id="val" class="form-control mb-2" placeholder="Enter input">
+    <button (click)="emitter?.next(val.value)" class="btn btn-outline-danger">Click</button>
+  </div>
+</div>

@@ -42,7 +42,7 @@
         </div>
       </div>
 
-      <input (click)="save()" type="submit" value="Save" class="btn btn-primary">
+      <input (click)="save()" [class.disabled]="!form.valid" class="btn btn-primary" type="submit" value="Save">
 
     </div>
 
@@ -67,7 +67,7 @@
   <tbody>
     <tr *ngFor="let item of list">
       <td>{{ item.name }}</td>
-      <td>{{ item.contact.phone }}</td>
+      <td>{{ item.contact.phone | number }}</td>
       <td>{{ item.contact.email }}</td>
       <td>{{ item.subjects | subject }}</td>
     </tr>

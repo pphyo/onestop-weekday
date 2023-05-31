@@ -5,9 +5,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-local-child',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './local-child.component.html',
-  styleUrls: ['./local-child.component.css']
+  templateUrl: './local-child.component.html'
 })
 export class LocalChildComponent {
-
+  list:any = []
 }

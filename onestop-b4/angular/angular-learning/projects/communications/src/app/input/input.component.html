@@ -6,17 +6,17 @@
       <div class="card-header">Input Data</div>
       <div class="card-body">
         <ol class="list-group" *ngFor="let c of courses">
-          <li class="list-group-item list-group-item-flush d-flex justify-content-between align-items-start">
+          <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-start"
+            (click)="target = c" [class.active]="target == c">
             <div class="ms-2 me-auto">{{c.name}}</div>
-            <span class="badge bg-primary rounded-pill">{{c.duration}}</span>
+            <span class="badge bg-info rounded-pill">{{c.duration}}</span>
           </li>
-
         </ol>
       </div>
     </div>
   </div>
 
   <div class="col">
-    <app-input-child></app-input-child>
+    <app-input-child [childCourse]="target"></app-input-child>
   </div>
 </div>

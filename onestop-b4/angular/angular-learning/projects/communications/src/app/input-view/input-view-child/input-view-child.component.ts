@@ -5,9 +5,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-input-view-child',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './input-view-child.component.html',
-  styleUrls: ['./input-view-child.component.css']
+  templateUrl: './input-view-child.component.html'
 })
 export class InputViewChildComponent {
-
+  list:any = []
 }
