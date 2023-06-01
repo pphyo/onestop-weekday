@@ -1,1 +1,15 @@
-<router-outlet></router-outlet>
+<div class="row">
+
+  <div class="col-4">
+    <div class="list-group">
+      <a [routerLink]="['/one', 'prop']" routerLinkActive="active"
+        class="list-group-item list-group-item-action">Property Binding</a>
+      <a [routerLink]="['/one', 'attr']" routerLinkActive="active"
+        class="list-group-item list-group-item-action">Attribute Binding</a>
+    </div>
+  </div>
+
+  <div class="col">
+    <router-outlet></router-outlet>
+  </div>
+</div>

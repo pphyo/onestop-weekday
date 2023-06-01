@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <div class="container">
+    <a [routerLink]="['/']" routerLinkActive="router-link-active" class="navbar-brand">Data Binding</a>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto mb-2">
+        <li class="nav-item">
+          <a [routerLink]="['/interpo']" routerLinkActive="active" class="nav-link">Interpolation</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/one']" class="nav-link" routerLinkActive="active">
+            One Way
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/event" routerLinkActive="active" class="nav-link">Event</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/two" routerLinkActive="active" class="nav-link">Two Way</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <router-outlet></router-outlet>
+</div>

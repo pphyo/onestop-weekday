@@ -1,0 +1,37 @@
+<h3 class="text-success">Using Component</h3>
+
+<div class="card my-3">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-3">
+        <label for="id" class="form-label">ID</label>
+        <input #id type="text" class="form-control" id="id" placeholder="Enter Hero ID">
+      </div>
+      <div class="col align-self-end">
+        <button (click)="search(id.value)" class="btn btn-outline-success">Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table table-striped bg-light">
+  <thead>
+    <tr>
+      <td>ID</td>
+      <td>Name</td>
+      <td>Role</td>
+      <td>Fav</td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of list">
+      <td>{{ item?.id }}</td>
+      <td>{{ item?.name }}</td>
+      <td>{{ item?.role }}</td>
+      <td>{{ item?.fav }}</td>
+      <td><a [routerLink]="['/component', item.id]" routerLinkActive="router-link-active"
+          class="btn btn-sm btn-outline-dark">Detail</a></td>
+    </tr>
+  </tbody>
+</table>

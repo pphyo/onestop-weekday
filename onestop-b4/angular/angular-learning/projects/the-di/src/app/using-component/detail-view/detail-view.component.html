@@ -1,0 +1,30 @@
+<div class="row justify-content-center">
+  <div class="col-4">
+
+    <div class="card">
+
+      <div class="card-header">
+        <h3>Hero Detail</h3>
+      </div>
+
+      <div class="card-body">
+        <label class="form-label">ID</label>
+        <input [value]="targetData.id" type="text" class="form-control mb-2" readonly>
+
+        <label class="form-label">Name</label>
+        <input [value]="targetData.name" type="text" class="form-control mb-2" readonly>
+
+        <label class="form-label">Role</label>
+        <input [value]="targetData.role" type="text" class="form-control mb-2" readonly>
+
+        <label class="form-label">Favorite</label>
+        <input [value]="targetData.fav" type="text" class="form-control mb-3" readonly>
+
+        <a [routerLink]="['/component']" routerLinkActive="router-link-active" class="btn btn-outline-danger">Go to Hero
+          List</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>

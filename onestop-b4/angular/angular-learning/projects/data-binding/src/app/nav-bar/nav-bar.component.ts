@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-one',
+  selector: 'app-nav-bar',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterModule],
-  templateUrl: './one.component.html',
-  styleUrls: ['./one.component.css']
+  templateUrl: './nav-bar.component.html'
 })
-export class OneComponent {
+export class NavBarComponent {
 
 }

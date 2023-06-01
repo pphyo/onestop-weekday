@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand navbar-dark bg-danger">
+  <div class="container">
+    <a [routerLink]="['/']" class="navbar-brand">Dependency
+      Injection</a>
+
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a [routerLink]="['/inject']" routerLinkActive="active" class="nav-link">@Injectable()</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/component']" routerLinkActive="active" class="nav-link">@Component()</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <router-outlet></router-outlet>
+</div>
