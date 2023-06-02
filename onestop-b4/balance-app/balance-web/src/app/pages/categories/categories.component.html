@@ -1,0 +1,5 @@
+<div class="row">
+  <app-category-search-form (onSearch)="search($event)"></app-category-search-form>
+</div>
+
+<app-category-list [list]="categories" (onEdit)="edit($event)" (onRemove)="remove($event)"></app-category-list>

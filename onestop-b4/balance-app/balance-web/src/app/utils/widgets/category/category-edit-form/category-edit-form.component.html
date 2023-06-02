@@ -1,0 +1,48 @@
+<h3>Category Edit Form</h3>
+
+<div class="row">
+  <div class="col-5">
+    <form [formGroup]="form">
+
+      <label for="name" class="form-label">Name</label>
+      <div class="input-group mb-3">
+        <input type="text" formControlName="name" class="form-control" placeholder="Enter category name">
+        <span class="input-group-text">
+          <i [ngClass]="form.get('name')?.valid ?
+          'text-success bi bi-check' :
+          'text-danger bi bi-x'"></i>
+        </span>
+      </div>
+
+      <label for="type" class="form-label">Type</label>
+      <div class="input-group mb-3">
+        <select formControlName="type" class="form-control">
+          <option value="">Select Type</option>
+          <option *ngFor="let type of catType" [value]="type">{{type}}</option>
+        </select>
+        <span class="input-group-text">
+          <i [ngClass]="form.get('type')?.valid ?
+          'text-success bi bi-check' :
+          'text-danger bi bi-x'"></i>
+        </span>
+      </div>
+
+      <label for="icon" class="form-label">Icon</label>
+      <div class="input-group mb-3">
+        <input type="text" formControlName="icon" class="form-control" placeholder="Enter image url">
+        <span class="input-group-text">
+          <i [ngClass]="form.get('icon')?.valid ?
+          'text-success bi bi-check' :
+          'text-danger bi bi-x'"></i>
+        </span>
+      </div>
+
+      <a [routerLink]="['/categories']" class="btn btn-danger me-3">
+        <i class="bi bi-arrow-90deg-left"></i> Close
+      </a>
+      <button [class.disabled]="!form.valid" (click)="save()" type="submit" class="btn btn-primary text-end">
+        <i class="bi bi-save"></i> Create
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="row p-2 mt-3 row-gap-2">
+  <div *ngIf="list.length == 0" class="col-5 mt-2"><app-no-data name="Category List"></app-no-data></div>
+  <div class="col-4 p-2" *ngFor="let item of list">
+    <div class="row ms-1 align-items-center border me-1">
+      <div class="col-3 border-end border-danger">
+        <p class="fs-1 text-danger mt-2 ms-2"><i [class]="item.icon"></i></p>
+      </div>
+      <div class="col mt-2">
+        <p class="fs-4 text-primary fw-bold">{{item.name}}</p>
+        <p class="fw-bold">{{item.type}}</p>
+      </div>
+      <div class="col-2">
+        <button (click)="edit(item.id)" class="btn btn-sm btn-outline-primary mb-2"><i
+            class="bi bi-pencil-square"></i></button>
+        <button (click)="remove(item.id)" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { categoryType } from 'src/app/services/data';
+import { RouterModule } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-category-search-form',
+  standalone: true,
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  templateUrl: './category-search-form.component.html'
+})
+export class CategorySearchFormComponent {
+
+  catType = categoryType
+  form:FormGroup
+
+  @Output()
+  onSearch = new EventEmitter<any>
+
+  constructor(public builder:FormBuilder) {
+    this.form = this.builder.group({
+      name: '',
+      type: ''
+    })
+  }
+
+  search() {
+    this.onSearch.emit(this.form.value)
+  }
+
+}

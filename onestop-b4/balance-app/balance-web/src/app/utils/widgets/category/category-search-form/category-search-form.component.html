@@ -1,0 +1,38 @@
+<h3>Category</h3>
+
+<hr class="mx-1 text-danger">
+
+<form [formGroup]="form">
+  <div class="row">
+
+    <!-- Category Name Search Input -->
+    <div class="col-3">
+      <label class="form-label">Name</label>
+      <input type="text" formControlName="name" class="form-control" placeholder="Enter category name">
+    </div>
+
+    <!-- Category Type Search Input -->
+    <div class="col-3">
+      <label class="form-label">Category Type</label>
+      <select formControlName="type" class="form-select">
+        <option value="">Select Type</option>
+        <option *ngFor="let type of catType" [value]="type">{{type}}</option>
+      </select>
+    </div>
+
+    <!-- Category Type Search Input -->
+    <div class="col-5 align-self-end d-flex">
+      <button (click)="search()" class="btn btn-outline-primary me-3 w-100">
+        <i class="bi bi-search"></i> Search
+      </button>
+
+      <a [routerLink]="['/categories', 'edit-form']" class="btn btn-outline-danger me-3 w-100">
+        <i class="bi bi-plus-lg"></i> Add New
+      </a>
+
+      <button type="button" class="btn btn-outline-dark w-100">
+        <i class="bi bi-upload"></i> Upload
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,38 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CategoryService } from 'src/app/services/categories.service';
+import { CategoryListComponent } from 'src/app/utils/widgets/category/category-list/category-list.component';
+import { CategorySearchFormComponent } from 'src/app/utils/widgets/category/category-search-form/category-search-form.component';
+import { CategoryEditFormComponent } from 'src/app/utils/widgets/category/category-edit-form/category-edit-form.component';
+
+@Component({
+  selector: 'app-categories',
+  standalone: true,
+  imports: [CommonModule, CategorySearchFormComponent, CategoryListComponent, CategoryEditFormComponent],
+  templateUrl: './categories.component.html',
+  styleUrls: ['./categories.component.css']
+})
+export class CategoriesComponent implements OnInit {
+
+  categories:any[] = []
+
+  constructor(private service:CategoryService) {}
+
+  ngOnInit(): void {
+    this.search(null)
+  }
+
+  search(params:any) {
+    this.service.find(params).subscribe(result => this.categories = result)
+  }
+
+  edit(id:number) {
+
+  }
+
+  remove(id:number) {
+    this.service.remove(id).subscribe(result => {
+      
+    })
+  }
+}
