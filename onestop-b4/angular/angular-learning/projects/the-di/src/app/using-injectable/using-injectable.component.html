@@ -21,6 +21,7 @@
       <td>Name</td>
       <td>Role</td>
       <td>Fav</td>
+      <td></td>
     </tr>
   </thead>
   <tbody>
@@ -29,6 +30,9 @@
       <td>{{ item?.name }}</td>
       <td>{{ item?.role }}</td>
       <td>{{ item?.fav }}</td>
+      <td>
+        <button (click)="navigate(item?.id)" class="btn btn-outline-dark">Detail</button>
+      </td>
     </tr>
   </tbody>
 </table>

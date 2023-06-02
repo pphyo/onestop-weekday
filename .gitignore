@@ -13,6 +13,9 @@ local.properties
 onestop-b4/angular/angular-learning/node_modules
 onestop-b4/angular/angular-learning/.angular
 onestop-b4/angular/angular-learning/.vscode
+onestop-b4/balance-app/balance-web/node_modules
+onestop-b4/balance-app/balance-web/.angular
+onestop-b4/balance-app/balance-web/.vscode
 
 npm-debug.log
 yarn-error.log

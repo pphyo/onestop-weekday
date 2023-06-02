@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InjectorService } from '../services/using-injector.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-using-injectable',
@@ -12,10 +13,14 @@ export class UsingInjectableComponent implements OnInit {
 
   list:any = []
 
-  constructor(private service:InjectorService) {}
+  constructor(private service:InjectorService, private router:Router) {}
 
   ngOnInit(): void {
     this.search(0)
+  }
+
+  navigate(id:number) {
+    this.router.navigate(['/inject/view'], {queryParams: {'id': id}})
   }
 
   search(param:any) {
