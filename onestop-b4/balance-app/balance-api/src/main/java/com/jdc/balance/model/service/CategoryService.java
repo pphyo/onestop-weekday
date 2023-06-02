@@ -67,6 +67,10 @@ public class CategoryService {
 					throw new BalanceApiException("No category found with ID %d.".formatted(id));
 				});
 	}
+	
+	public void delete(int id) {
+		repo.deleteById(id);
+	}
 }
 
 

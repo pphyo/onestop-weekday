@@ -16,13 +16,13 @@ public class BalanceApiExceptionHandler {
 
 	@ExceptionHandler
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	ErrorResult business(BalanceApiException exception) {
+	ErrorResult handle(BalanceApiException exception) {
 		return new ErrorResult(exception.getType(), exception.getMessages());
 	}
 	
 	@ExceptionHandler
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	ErrorResult violate(ConstraintViolationException exception) {
+	ErrorResult handle(ConstraintViolationException exception) {
 		var messages = exception.getConstraintViolations()
 								.stream()
 								.map(c -> c.getMessage())

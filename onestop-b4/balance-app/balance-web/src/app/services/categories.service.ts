@@ -12,7 +12,24 @@ export class CategoryService {
   constructor(private http:HttpClient) {}
 
   save(form:any) {
+
+    const{id, ...formData} = form
+    if(id)
+      return this.edit(id, formData)
+
+    return this.create(form)
+  }
+
+  private create(form: any) {
     return this.http.post<any>(API, form)
+  }
+
+  private edit(id:number, form:any) {
+    return this.http.put<any>(`${API}/${id}`, form)
+  }
+
+  findById(id:number) {
+    return this.http.get<any>(`${API}/${id}`)
   }
 
   find(form:any) {

@@ -4,6 +4,7 @@ import { CategoryService } from 'src/app/services/categories.service';
 import { CategoryListComponent } from 'src/app/utils/widgets/category/category-list/category-list.component';
 import { CategorySearchFormComponent } from 'src/app/utils/widgets/category/category-search-form/category-search-form.component';
 import { CategoryEditFormComponent } from 'src/app/utils/widgets/category/category-edit-form/category-edit-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
@@ -16,7 +17,7 @@ export class CategoriesComponent implements OnInit {
 
   categories:any[] = []
 
-  constructor(private service:CategoryService) {}
+  constructor(private service:CategoryService, private router:Router) {}
 
   ngOnInit(): void {
     this.search(null)
@@ -26,13 +27,9 @@ export class CategoriesComponent implements OnInit {
     this.service.find(params).subscribe(result => this.categories = result)
   }
 
-  edit(id:number) {
-
-  }
-
   remove(id:number) {
     this.service.remove(id).subscribe(result => {
-      
+      this.search(null)
     })
   }
 }
