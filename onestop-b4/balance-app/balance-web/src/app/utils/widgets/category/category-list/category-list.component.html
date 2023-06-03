@@ -1,13 +1,16 @@
 <div class="row p-2 mt-3 row-gap-2">
+
   <div *ngIf="list.length == 0" class="col-5 mt-2"><app-no-data name="Category List"></app-no-data></div>
+
   <div class="col-4 p-2" *ngFor="let item of list">
     <div class="row ms-1 align-items-center border me-1">
-      <div class="col-3 border-end border-danger">
+      <div class="col-3 my-2 border-end border-danger">
         <p class="fs-1 text-danger mt-2 ms-2"><i [class]="item.icon"></i></p>
       </div>
       <div class="col mt-2">
-        <p class="fs-4 text-primary fw-bold">{{item.name}}</p>
-        <p class="fw-bold">{{item.type}}</p>
+        <a href="#"
+          class="fs-4 link-primary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">{{item.name}}</a>
+        <p class="fw-bold mt-2">{{item.type}}</p>
       </div>
       <div class="col-2">
         <a [routerLink]="['/categories', 'edit-form']" [queryParams]="{id: item.id}"
@@ -16,4 +19,7 @@
       </div>
     </div>
   </div>
+
 </div>
+
+<app-confirm [removeId]="removeId" (onConfirm)="confirmRemove($event)"></app-confirm>

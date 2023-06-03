@@ -31,7 +31,7 @@ export class CategoryEditFormComponent implements OnInit {
   }
 
   ngOnInit():void {
-    let id = 0
+    let id:number = 0
 
     this.route.queryParamMap.subscribe(param => {
       id = + (param.get('id') as string)

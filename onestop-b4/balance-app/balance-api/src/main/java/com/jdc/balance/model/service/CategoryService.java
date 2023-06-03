@@ -77,11 +77,13 @@ public class CategoryService {
 		for(String line : lines) {
 			var arr = line.split("\t");
 			
-			if(arr.length != 3)
+			if(arr.length == 3)
+				save(new CategoryForm(arr[0], arr[1], arr[2]));
+			else if(arr.length == 2)
+				save(new CategoryForm(arr[0], arr[1], null));
+			else
 				throw new BalanceApiException("Invalid File Layout!");
-			
-			save(new CategoryForm(arr[0], arr[1], arr[2]));
-			
+						
 		}
 			
 		
