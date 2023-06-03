@@ -32,4 +32,10 @@ export class CategoriesComponent implements OnInit {
       this.search(null)
     })
   }
+
+  upload(file:any) {
+    console.log(file)
+    if(file)
+      this.service.upload(file).subscribe(result => this.categories = result)
+  }
 }

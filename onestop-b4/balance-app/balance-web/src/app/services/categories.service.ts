@@ -33,11 +33,18 @@ export class CategoryService {
   }
 
   find(form:any) {
-    return this.http.get<any>(API, {params: form})
+    return this.http.get<any[]>(API, {params: form})
   }
 
   remove(id:any) {
     return this.http.delete<any>(`${API}/${id}`)
+  }
+
+  upload(file:any) {
+    const formData = new FormData
+    console.log(formData)
+    formData.append('file', file, file.name)
+    return this.http.post<any[]>(`${API}/upload`, formData)
   }
 
 }

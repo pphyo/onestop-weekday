@@ -71,6 +71,22 @@ public class CategoryService {
 	public void delete(int id) {
 		repo.deleteById(id);
 	}
+
+	public List<CategoryDto> upload(List<String> lines) {
+		
+		for(String line : lines) {
+			var arr = line.split("\t");
+			
+			if(arr.length != 3)
+				throw new BalanceApiException("Invalid File Layout!");
+			
+			save(new CategoryForm(arr[0], arr[1], arr[2]));
+			
+		}
+			
+		
+		return search(Optional.empty(), Optional.empty());
+	}
 }
 
 

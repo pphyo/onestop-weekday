@@ -1,5 +1,5 @@
 <div class="row">
-  <app-category-search-form (onSearch)="search($event)"></app-category-search-form>
+  <app-category-search-form (onSearch)="search($event)" (onUpload)="upload($event)"></app-category-search-form>
 </div>
 
 <app-category-list [list]="categories" (onRemove)="remove($event)"></app-category-list>

@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jdc.balance.model.BalanceApiException;
 import com.jdc.balance.model.dto.CategoryDto;
 import com.jdc.balance.model.dto.form.CategoryForm;
 import com.jdc.balance.model.entity.Category.CategoryType;
 import com.jdc.balance.model.service.CategoryService;
+import com.jdc.balance.model.service.ParserService;
 
 @RestController
 @RequestMapping("categories")
@@ -28,6 +30,9 @@ public class CategoryApi {
 	
 	@Autowired
 	private CategoryService service;
+	
+	@Autowired
+	private ParserService parserService;
 	
 	@PostMapping
 	CategoryDto create(
@@ -69,6 +74,11 @@ public class CategoryApi {
 	@DeleteMapping("{id}")
 	void delete(@PathVariable int id) {
 		service.delete(id);
+	}
+	
+	@PostMapping("upload")
+	List<CategoryDto> upload(@RequestParam MultipartFile file) {
+		return service.upload(parserService.parse(file));
 	}
 
 }
