@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { categoryType } from 'src/app/services/data';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { PageTitleComponent } from '../../page-title/page-title.component';
 
 @Component({
   selector: 'app-category-search-form',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, PageTitleComponent],
   templateUrl: './category-search-form.component.html'
 })
 export class CategorySearchFormComponent {

@@ -1,0 +1,51 @@
+<div class="modal fade" id="accountForm" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="text-primary"><i [class]="form.get('id')?.value ? 'bi bi-pencil-square' : 'bi bi-plus-square'"></i>
+          {{form.get('id')?.value ? 'Edit Account' : 'Add New Account' }}</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form [formGroup]="form">
+        <div class="modal-body">
+          <label for="name" class="form-label">Name</label>
+          <div class="input-group mb-3">
+            <input type="text" formControlName="name" id="name" class="form-control" placeholder="Enter account name">
+            <span class="input-group-text">
+              <i [ngClass]="form.get('name')?.valid ?
+                'text-success bi bi-check' :
+                'text-danger bi bi-x'"></i>
+            </span>
+          </div>
+
+          <label for="amount" class="form-label">Initial Amount</label>
+          <div class="input-group mb-3">
+            <input type="number" formControlName="initialAmount" id="amount" class="form-control"
+              placeholder="Enter account name">
+            <span class="input-group-text">
+              <i [ngClass]="form.get('initialAmount')?.valid &&
+              form.get('initialAmount')?.value >= 100 ?
+                'text-success bi bi-check' :
+                'text-danger bi bi-x'"></i>
+            </span>
+          </div>
+
+          <label class="form-label">Icon</label>
+          <div class="d-flex flex-row justify-content-between">
+            <div *ngFor="let icon of icons">
+              <img [ngClass]="srcValue == icon ? 'checked' : ''" [src]="icon" class="inpsrc img-thumbnail"
+                (click)="addSrcValue(icon)">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button (click)="save()" type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

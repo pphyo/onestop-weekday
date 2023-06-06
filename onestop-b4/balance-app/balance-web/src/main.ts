@@ -1,6 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { provideRouter } from '@angular/router';
+import { ResolveFn, Route, provideRouter } from '@angular/router';
 import { RecordsComponent } from './app/pages/records/records.component';
 import { BudgetsComponent } from './app/pages/budgets/budgets.component';
 import { AccountsComponent } from './app/pages/accounts/accounts.component';
@@ -9,17 +9,21 @@ import { CategoryEditFormComponent } from './app/utils/widgets/category/category
 import { importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
+const record:ResolveFn<string> = () => Promise.resolve('Record')
+
+const routes:Route[] = [
+  {path: 'records', component: RecordsComponent, title: record},
+  {path: 'budgets', component: BudgetsComponent, title: 'Balance | Budget'},
+  {path: 'accounts', component: AccountsComponent, title: 'Balance | Account'},
+  {path: 'categories', component: CategoriesComponent, title: 'Balance | Category'},
+  {path: 'categories/edit-form', component: CategoryEditFormComponent, title: 'Balance | Category Form'},
+  {path: '', redirectTo: '/records', pathMatch: 'full'}
+]
+
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter([
-      {path: 'records', component: RecordsComponent},
-      {path: 'budgets', component: BudgetsComponent},
-      {path: 'accounts', component: AccountsComponent},
-      {path: 'categories', component: CategoriesComponent},
-      {path: 'categories/edit-form', component: CategoryEditFormComponent},
-      {path: '', redirectTo: '/records', pathMatch: 'full'}
-    ]),
-    importProvidersFrom(HttpClientModule)
-  ]
+              provideRouter(routes),
+              importProvidersFrom(HttpClientModule)
+             ]
 })
   .catch((err) => console.error(err));

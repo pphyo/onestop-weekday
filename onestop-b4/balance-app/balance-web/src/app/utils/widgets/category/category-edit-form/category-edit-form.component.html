@@ -1,7 +1,9 @@
-<h3>Category Edit Form</h3>
-
+<h2 class="text-danger"><i [class]="form.get('id')?.value ? 'bi bi-pencil-square' : 'bi bi-plus-square'"></i>
+  {{form.get('id')?.value > 0 ? 'Edit Category' : 'Add New Category'}}</h2>
 <div class="row">
   <div class="col-5">
+    <hr class="text-danger mx-2">
+
     <form [formGroup]="form">
 
       <label for="name" class="form-label">Name</label>

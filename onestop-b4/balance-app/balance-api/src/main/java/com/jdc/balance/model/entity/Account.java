@@ -24,6 +24,7 @@ public class Account implements Serializable {
 	@Column(nullable = false)
 	private String name;
 	@Column(name = "initial_amount")
-	private double inititalAmount;
+	private double initialAmount;
+	private String icon;
 	
 }

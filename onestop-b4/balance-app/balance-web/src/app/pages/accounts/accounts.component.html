@@ -1,1 +1,10 @@
-<p>accounts works!</p>
+<app-page-title><i class="bi bi-wallet2"></i> Account</app-page-title>
+
+<div class="row mt-4">
+  <div class="col">
+    <app-account-list (amountEmitter)="getTotalAmount($event)"></app-account-list>
+  </div>
+  <div class="col">
+    <app-account-overview [totalBalance]="totalAmount"></app-account-overview>
+  </div>
+</div>
