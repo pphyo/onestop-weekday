@@ -34,4 +34,9 @@ export class AccountsService {
   getTotalBalance() {
     return this.http.get<number>(`${API}/total`)
   }
+
+  remove(id:number) {
+    return this.http.delete<any>(`${API}/${id}`)
+  }
+
 }

@@ -10,8 +10,7 @@ import { Router } from '@angular/router';
   selector: 'app-categories',
   standalone: true,
   imports: [CommonModule, CategorySearchFormComponent, CategoryListComponent, CategoryEditFormComponent],
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.css']
+  templateUrl: './categories.component.html'
 })
 export class CategoriesComponent implements OnInit {
 

@@ -1,7 +1,13 @@
 <button class="btn btn-outline-primary" (click)="add()">
   <i class="bi bi-plus-circle"></i> Add New account
 </button>
+
+<div class="row mt-4" *ngIf="accounts.length == 0">
+  <app-no-data class="col mx-2" name="Account"></app-no-data>
+</div>
+
 <div class="row mt-4" *ngFor="let acc of accounts">
+
   <div class="col card mx-2">
 
     <div class="row card-body box">
@@ -16,7 +22,7 @@
       <div class="col-2 align-self-center">
         <button (click)="edit(acc)" class="btn btn-sm btn-outline-primary mb-2 ms-4"><i
             class="bi bi-pencil-square"></i></button>
-        <button class="btn btn-sm btn-outline-danger ms-4"><i class="bi bi-trash"></i></button>
+        <button (click)="remove(acc.id)" class="btn btn-sm btn-outline-danger ms-4"><i class="bi bi-trash"></i></button>
       </div>
     </div>
 
@@ -24,3 +30,4 @@
 </div>
 
 <app-account-form [data]="targetAccount" (onSave)="save($event)"></app-account-form>
+<app-confirm (onConfirm)="confirm($event)" [removeId]="removeId"></app-confirm>

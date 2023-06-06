@@ -45,4 +45,8 @@ public class AccountService {
 				   }).orElseThrow(() -> {throw new BalanceApiException("Account update error with %d.".formatted(id));});
 	}
 
+	public void remove(int id) {
+		repo.deleteById(id);		
+	}
+
 }

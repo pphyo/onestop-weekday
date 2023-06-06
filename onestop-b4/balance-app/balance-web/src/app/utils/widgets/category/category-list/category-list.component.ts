@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NoDataComponent } from '../../no-data/no-data.component';
 import { RouterModule } from '@angular/router';
-import { ConfirmComponent } from '../confirm/confirm.component';
+import { ConfirmComponent } from '../../confirm/confirm.component';
 
 declare var bootstrap:any
 

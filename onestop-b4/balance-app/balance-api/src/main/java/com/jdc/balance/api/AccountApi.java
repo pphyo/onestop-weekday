@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,6 +58,11 @@ public class AccountApi {
 	@GetMapping("total")
 	public Long totalAmountOfAll() {
 		return service.getTotalAmount().orElse(null);
+	}
+	
+	@DeleteMapping("{id}")
+	public void delete(@PathVariable int id) {
+		service.remove(id);
 	}
 
 }
