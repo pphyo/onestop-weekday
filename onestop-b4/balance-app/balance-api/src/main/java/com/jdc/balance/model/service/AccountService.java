@@ -22,26 +22,26 @@ public class AccountService {
 	private AccountRepository repo;
 	
 	public AccountDto save(@Valid AccountForm form) {
-		return AccountDto.form(repo.save(form.entity()));
+		return AccountDto.from(repo.save(form.entity()));
 	}
 
 	@Transactional(readOnly = true)
 	public List<AccountDto> search() {
-		return repo.findAll().stream().map(a -> AccountDto.form(a)).toList();
+		return repo.findAll().stream().map(a -> AccountDto.from(a)).toList();
 	}
 	
 	@Transactional(readOnly = true)
 	public Optional<Long> getTotalAmount() {
 		return repo.getTotalAmount();
 	}
-
+	
 	public AccountDto update(int id, @Valid AccountForm form) {
 		return repo.findById(id)
 				   .map(acc -> {
 					   acc.setName(form.name());
 					   acc.setInitialAmount(form.initialAmount());
 					   acc.setIcon(form.icon());
-					   return AccountDto.form(acc);
+					   return AccountDto.from(acc);
 				   }).orElseThrow(() -> {throw new BalanceApiException("Account update error with %d.".formatted(id));});
 	}
 

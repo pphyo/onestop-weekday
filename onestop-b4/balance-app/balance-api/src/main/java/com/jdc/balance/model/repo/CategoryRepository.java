@@ -1,12 +1,14 @@
 package com.jdc.balance.model.repo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 
 import com.jdc.balance.model.entity.Category;
+import com.jdc.balance.model.entity.Category.CategoryType;
 
-public interface CategoryRepository extends 
-JpaRepository<Category, Integer>, 
-JpaSpecificationExecutor<Category> {
+public interface CategoryRepository extends JpaRepositoryImplementation<Category, Integer> {
+
+	List<Category> findByType(CategoryType type);
 
 }

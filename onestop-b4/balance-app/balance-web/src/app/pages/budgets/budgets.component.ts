@@ -6,7 +6,8 @@ import { PageTitleComponent } from 'src/app/utils/widgets/page-title/page-title.
   selector: 'app-budgets',
   standalone: true,
   imports: [CommonModule, PageTitleComponent],
-  templateUrl: './budgets.component.html'
+  templateUrl: './budgets.component.html',
+  styleUrls: ['./budgets.component.css']
 })
 export class BudgetsComponent {
 

@@ -1,0 +1,18 @@
+<div class="row align-items-center">
+  <div class="col-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <button (click)="minusMonth()" class="btn btn-light">
+        <h5>&lsaquo;</h5>
+      </button>
+      <h5 class="text-secondary">{{curDate}}</h5>
+      <button (click)="plusMonth()" class="btn btn-light">
+        <h5>&rsaquo;</h5>
+      </button>
+    </div>
+  </div>
+  <div class="col">
+    <button (click)="add(true)" class="btn btn-secondary rounded-circle opacity-75">
+      <i class="fs-5 bi bi-plus-circle"></i>
+    </button>
+  </div>
+</div>

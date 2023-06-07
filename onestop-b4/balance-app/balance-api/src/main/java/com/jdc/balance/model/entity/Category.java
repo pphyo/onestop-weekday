@@ -28,7 +28,7 @@ public class Category implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private CategoryType type;
 	private String icon;
-	
+		
 	public enum CategoryType {
 		Income, Expense
 	}

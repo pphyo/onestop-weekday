@@ -32,6 +32,10 @@ export class CategoryService {
     return this.http.get<any>(`${API}/${id}`)
   }
 
+  findByType(type:string) {
+    return this.http.get<any[]>(`${API}/type/${type}`)
+  }
+
   find(form:any) {
     return this.http.get<any[]>(API, {params: form})
   }
@@ -42,7 +46,6 @@ export class CategoryService {
 
   upload(file:any) {
     const formData = new FormData
-    console.log(formData)
     formData.append('file', file, file.name)
     return this.http.post<any[]>(`${API}/upload`, formData)
   }

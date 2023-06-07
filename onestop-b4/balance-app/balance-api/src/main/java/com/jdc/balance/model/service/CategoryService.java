@@ -89,6 +89,10 @@ public class CategoryService {
 		
 		return search(Optional.empty(), Optional.empty());
 	}
+
+	public List<CategoryDto> findByType(CategoryType type) {
+		return repo.findByType(type).stream().map(CategoryDto::from).toList();
+	}
 }
 
 

@@ -6,8 +6,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   selector: 'app-account-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './account-form.component.html',
-  styleUrls: ['./account-form.component.css']
+  templateUrl: './account-form.component.html'
 })
 export class AccountFormComponent {
 
@@ -39,7 +38,7 @@ export class AccountFormComponent {
     this.form = this.builder.group({
       id: 0,
       name: ['', Validators.required],
-      initialAmount: ['', Validators.required]
+      initialAmount: [0, Validators.required]
     })
   }
 
@@ -61,7 +60,7 @@ export class AccountFormComponent {
     this.form.patchValue({
       id: 0,
       name: '',
-      initialAmount: ''
+      initialAmount: 0
     })
     this.srcValue = undefined
   }

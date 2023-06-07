@@ -1,1 +1,7 @@
-<p>records works!</p>
+<app-page-title><i class="bi bi-receipt-cutoff"></i> Record</app-page-title>
+
+<div class="row mt-4">
+  <app-balance-search (onAdd)="displayForm($event)"></app-balance-search>
+</div>
+
+<app-balance-form (onSave)="save($event)"></app-balance-form>

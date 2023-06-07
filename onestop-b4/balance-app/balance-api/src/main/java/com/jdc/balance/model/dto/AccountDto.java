@@ -9,7 +9,7 @@ public record AccountDto(
 		String icon
 		) {
 	
-	public static AccountDto form(Account acc) {
+	public static AccountDto from(Account acc) {
 		return new AccountDto(acc.getId(), acc.getName(), acc.getInitialAmount(), acc.getIcon());
 	}
 

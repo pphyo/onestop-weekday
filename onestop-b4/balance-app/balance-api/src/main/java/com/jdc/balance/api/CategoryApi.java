@@ -71,6 +71,11 @@ public class CategoryApi {
 		return service.findById(id);
 	}
 	
+	@GetMapping("type/{type}")
+	List<CategoryDto> findByType(@PathVariable CategoryType type) {
+		return service.findByType(type);
+	}
+	
 	@DeleteMapping("{id}")
 	void delete(@PathVariable int id) {
 		service.delete(id);

@@ -1,3 +1,16 @@
 .box:hover {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
+
+.inpsrc {
+  width: 55px;
+  height: 55px;
+}
+
+.checked {
+  box-shadow: 0 0.5rem 1rem rgba(255, 0, 8, 0.35) !important;
+}
+
+span.select {
+  cursor: pointer;
+}

@@ -34,8 +34,13 @@
           <label class="form-label">Icon</label>
           <div class="d-flex flex-row justify-content-between">
             <div *ngFor="let icon of icons">
-              <img [ngClass]="srcValue == icon ? 'checked' : ''" [src]="icon" class="inpsrc img-thumbnail"
-                (click)="addSrcValue(icon)">
+              <div [ngClass]="srcValue == icon ? 'checked' : ''" (click)="addSrcValue(icon)" class="position-relative">
+                <img [src]="icon" class="inpsrc img-thumbnail">
+                <span *ngIf="srcValue == icon"
+                  class="position-absolute top-0 start-100 translate-middle p-1 border border-light">
+                  <i class="text-success bi bi-check2-circle"></i>
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -43,7 +48,8 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i>
             Close</button>
-          <button (click)="save()" type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save</button>
+          <button [class.disabled]="!form.valid" (click)="save()" type="submit" class="btn btn-primary"><i
+              class="bi bi-save"></i> Save</button>
         </div>
       </form>
 
