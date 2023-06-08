@@ -1,5 +1,10 @@
 package com.jdc.balance.model.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.balance.model.BalanceApiException;
 import com.jdc.balance.model.dto.BalanceDto;
+import com.jdc.balance.model.dto.BalanceListDto;
 import com.jdc.balance.model.dto.form.BalanceForm;
 import com.jdc.balance.model.entity.Account;
 import com.jdc.balance.model.entity.Balance;
@@ -24,67 +30,92 @@ public class BalanceService {
 
 	@Autowired
 	private BalanceRepository balanceRepo;
-	
+
 	@Autowired
 	private AccountRepository accountRepo;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepo;
-	
+
 	public BalanceDto save(@Valid BalanceForm form) {
-		
 
 		var b = new Balance();
-		
+
 		b.setType(form.type());
 		b.setAmount(form.amount());
 		b.setNote(form.note());
-		
+
 		// get accountFrom
 		var from = getAccount(form.accountFrom());
 
 		b.setAccountFrom(from);
-		
+
 		// get category
 		var category = categoryRepo.findById(form.category()).orElse(null);
-		
-		if(form.type() == BalanceType.Income) {
-			
+
+		if (form.type() == BalanceType.Income) {
+
 			from.setInitialAmount(from.getInitialAmount() + form.amount());
 			b.setCategory(category);
-			
-		} else {			
+
+		} else {
 			// minus amount from accountFrom
 			from.setInitialAmount(from.getInitialAmount() - form.amount());
 
 			b.setAccountFrom(from);
 
-			if(form.type() == BalanceType.Transfer) {
+			if (form.type() == BalanceType.Transfer) {
 				// get accountTo
 				var to = getAccount(form.accountTo());
-				
+
 				// plus amount to accountTo
 				to.setInitialAmount(to.getInitialAmount() + form.amount());
-				
+
 				b.setAccountTo(to);
 			} else {
 				b.setCategory(category);
 			}
 		}
-				
+
 		return BalanceDto.from(balanceRepo.save(b));
 	}
 
 	private Account getAccount(int id) {
-		return accountRepo.findById(id)
-				.orElseThrow(() -> {
-					throw new BalanceApiException("Finding account error with %d".formatted(id));
-				});
+		return accountRepo.findById(id).orElseThrow(() -> {
+			throw new BalanceApiException("Finding account error with %d".formatted(id));
+		});
 	}
 
 	@Transactional(readOnly = true)
 	public Optional<Double> findTotalExpense(BalanceType type) {
 		return balanceRepo.findTotalExpense(type);
 	}
-	
+
+	@Transactional(readOnly = true)
+	public Map<LocalDate, List<BalanceListDto>> getBalanceInDayInMonth(LocalDate date) {
+		var result = new HashMap<LocalDate, List<BalanceListDto>>();
+
+		var dtoList = balanceRepo.getBalanceInMonth().stream().sorted().toList();
+
+		// get distinct date from balance
+		var ldList = balanceRepo.findDaysInMonth().stream().map(ldt -> ldt.toLocalDate()).distinct().sorted((a, b) -> b.compareTo(a)).toList();
+
+		for (var ld : ldList) {
+			var list = new ArrayList<BalanceListDto>();
+
+			for (var dto : dtoList) {				
+
+				if (ld.isEqual(date)) {
+					list.add(dto);
+					result.put(ld, list);
+				}
+
+			}
+			
+
+		}
+
+		return result;
+	}
+
 }

@@ -1,1 +1,41 @@
-<p>balance-list works!</p>
+<div *ngIf="!balances"><app-no-data name="Records in this Month"></app-no-data></div>
+
+<div *ngFor="let key of keys">
+  <h6>{{key | date: 'MMMM dd, EEEE'}}</h6>
+  <div class="border border-top border-success mx-2 opacity-50 mb-2"></div>
+
+  <div class="row mb-3">
+    <div class="col-4 p-3" *ngFor="let bal of balances[key]">
+      <div *ngIf="bal.type != 'Transfer'" class="box d-flex align-items-center border p-3">
+        <i [ngClass]="bal.categoryIcon"
+          class="fs-2 me-3 {{checkType(bal.type == 'Income', 'text-success', 'text-danger')}}"></i>
+        <div class="w-100">
+          <a href="#"
+            class="fs-5 link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">{{bal.categoryName}}</a><br>
+          <img class="me-1 img-fluid" [src]="bal.accountFromIcon" width="20" height="20">
+          <span>{{bal.accountFromName}}</span>
+        </div>
+        <span [ngClass]="checkType(bal.type == 'Income', 'text-success', 'text-danger')">
+          {{checkType(bal.type == 'Income', '$', '-$')}}{{bal.amount | number:'1.2'}}
+        </span>
+      </div>
+
+      <div *ngIf="bal.type == 'Transfer'" class="box d-flex align-items-center border p-3">
+        <i class="fs-2 me-3 fa-solid fa-right-left text-primary"></i>
+        <div class="w-100">
+          <a href="#"
+            class="fs-5 link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Transfer</a><br>
+          <img class="me-1 img-fluid" [src]="bal.accountFromIcon" width="20" height="20">
+          <span class="me-1">{{bal.accountFromName}}</span>
+          <i class="fa-solid fa-arrow-right text-warning me-1"></i>
+          <img class="me-1 img-fluid" [src]="bal.accountToIcon" width="20" height="20">
+          <span>{{bal.accountToName}}</span>
+        </div>
+        <span class="text-primary">
+          ${{bal.amount | number:'1.2'}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>

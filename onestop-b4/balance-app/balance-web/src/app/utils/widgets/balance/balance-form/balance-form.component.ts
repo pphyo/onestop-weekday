@@ -47,10 +47,23 @@ export class BalanceFormComponent {
   save() {
     let value = {...this.form.value, type: this.selectedType}
     this.onSave.emit(value)
+    this.initForm()
   }
 
   selectType(type:any) {
     this.selectedType = type
+  }
+
+  initForm() {
+    this.selectedType = undefined
+    this.form.patchValue({
+      accountFrom: '',
+      accountTo: '',
+      category: '',
+      amount: 0,
+      note: '',
+      createAt: ''
+    })
   }
 
 }

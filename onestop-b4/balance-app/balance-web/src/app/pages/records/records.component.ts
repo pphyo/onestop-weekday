@@ -17,12 +17,23 @@ declare var bootstrap:any
 export class RecordsComponent implements OnInit {
 
   balanceFormModal:any
-  list:any = []
+  balances:any
+  targetDate:any
+  keys:string[] = []
 
   constructor(private service:BalanceService) {}
 
   ngOnInit(): void {
+    this.search(this.targetDate ? this.targetDate : new Date)
     this.balanceFormModal = new bootstrap.Modal('#balanceForm', {backdrop: false})
+  }
+
+  search(date:Date) {
+    this.targetDate = date
+    this.service.searchInSpecificMonth(date).subscribe(result => {
+      this.keys = Object.keys(result)
+      Object.keys(result).length ? this.balances = result : this.balances = undefined
+    })
   }
 
   displayForm(data:any) {
@@ -31,8 +42,9 @@ export class RecordsComponent implements OnInit {
   }
 
   save(data:any) {
-    this.service.save(data).subscribe(result => this.list.push(result))
+    this.service.save(data).subscribe(result => this.balances.push(result))
     this.balanceFormModal.hide()
+    this.search(this.targetDate ? this.targetDate : new Date)
   }
 
 }

@@ -15,7 +15,11 @@ export class BalanceService {
     return this.http.post<any>(API, form)
   }
 
+  searchInSpecificMonth(date:Date) {
+    return this.http.get<any>(`${API}/${date.toISOString().slice(0, 10)}`)
+  }
+
   getExpenseAmount(type:string) {
-    return this.http.get<any>(`${API}/${type}`)
+    return this.http.get<any>(`${API}/type/${type}`)
   }
 }

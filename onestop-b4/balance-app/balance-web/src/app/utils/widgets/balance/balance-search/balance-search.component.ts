@@ -18,9 +18,16 @@ export class BalanceSearchComponent {
   @Output()
   onAdd = new EventEmitter<boolean>
 
+  @Output()
+  onSearch = new EventEmitter<Date>
+
   constructor() {
     this.date = new Date
     this.curDate = dateToString(this.date)
+  }
+
+  search() {
+    this.onSearch.emit(this.date)
   }
 
   add(event:boolean) {
