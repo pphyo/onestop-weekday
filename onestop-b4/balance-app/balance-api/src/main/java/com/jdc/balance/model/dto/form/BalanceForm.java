@@ -5,18 +5,18 @@ import java.time.LocalDateTime;
 import com.jdc.balance.model.entity.Balance.BalanceType;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 public record BalanceForm(
 			BalanceType type,
-			@NotNull(message = "Please select account!")
-			int accountFrom,
-			int category,
-			int accountTo,
+			@NotBlank(message = "Please select account!")
+			String accountFrom,
+			String category,
+			String accountTo,
 			@Min(value = 1, message = "Enter correct ammount!")
 			double amount,
 			String note,
-			LocalDateTime createdAt
+			LocalDateTime creation
 		) {
 	
 

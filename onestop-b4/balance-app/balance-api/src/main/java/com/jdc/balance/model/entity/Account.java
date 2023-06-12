@@ -21,7 +21,7 @@ public class Account implements Serializable {
 	@Id
 	@GeneratedValue(generator = "ACCOUNT_SEQ")
 	private int id;
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String name;
 	@Column(name = "initial_amount")
 	private double initialAmount;

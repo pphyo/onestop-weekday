@@ -1,0 +1,77 @@
+<div class="modal fade" id="balanceDetail" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Balance Detail</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div *ngIf="data?.type != 'Transfer'" class="text-center">
+          <h4 class="text-uppercase">{{data?.type}}
+          </h4>
+          <h3 [ngClass]="data?.type == 'Income' ? 'text-success' : 'text-danger'">{{data?.type == 'Income' ? '$' :
+            '-$'}}{{data?.amount | number: '1.2'}}</h3>
+          <p class="text-end me-2 mb-0">{{data?.creation | date: 'MMM dd, yyyy hh:mm a'}}</p>
+
+          <div [ngClass]="data?.type == 'Income' ? 'border-success' : 'border-danger'"
+            class="border-top m-2 opacity-50"></div>
+
+          <div class="row ps-3 my-3 align-items-center">
+            <h5 class="col-4 text-start">Account</h5>
+            <div class="col text-start w-auto d-flex">
+              <img class="me-2" [src]="data?.accountFromIcon" width="30" height="30">
+              <p>{{data?.accountFrom}}</p>
+            </div>
+          </div>
+
+          <div class="row mb-3 ps-3 align-items-center">
+            <h5 class="col-4 text-start">Category</h5>
+            <div class="col text-start w-auto d-flex">
+              <h3 class="me-2" [ngClass]="data?.type == 'Income' ? 'text-success' : 'text-danger'"><i
+                  [ngClass]="data?.categoryIcon"></i></h3>
+              <p>{{data?.category}}</p>
+            </div>
+          </div>
+
+          <p class="text-center my-0 mx-2 text-secondary">{{data?.note ? data?.note : 'No note'}}</p>
+        </div>
+
+        <div *ngIf="data?.type == 'Transfer'" class="text-center">
+          <h4 class="text-uppercase">Transfer
+          </h4>
+          <h3 class="text-primary">${{data?.amount | number: '1.2'}}</h3>
+          <p class="text-end me-2 mb-0">{{data?.creation | date: 'MMM dd, yyyy hh:mm a'}}</p>
+
+          <div class="border-primary border-top m-2 opacity-50"></div>
+
+          <div class="row ps-3 my-3 align-items-center">
+            <h5 class="col-4 text-start">Account From</h5>
+            <div class="col text-start w-auto d-flex">
+              <img class="me-2" [src]="data?.accountFromIcon" width="30" height="30">
+              <p>{{data?.accountFrom}}</p>
+            </div>
+          </div>
+
+          <div class="row mb-3 ps-3 align-items-center">
+            <h5 class="col-4 text-start">Account To</h5>
+            <div class="col text-start w-auto d-flex">
+              <img class="me-2" [src]="data?.accountToIcon" width="30" height="30">
+              <p>{{data?.accountTo}}</p>
+            </div>
+          </div>
+
+          <p class="text-center my-0 mx-2 text-secondary">{{data?.note ? data?.note : 'No note'}}</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button (click)="remove(data?.id)" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
+        <button (click)="edit()" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>
+          Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-confirm [removeId]="removeId" (onConfirm)="confirmRemove($event)"></app-confirm>

@@ -14,3 +14,7 @@
 span.select {
   cursor: pointer;
 }
+
+.header-link:hover {
+  cursor: pointer;
+}

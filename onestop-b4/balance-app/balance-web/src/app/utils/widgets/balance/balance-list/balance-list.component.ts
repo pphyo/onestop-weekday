@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NoDataComponent } from '../../no-data/no-data.component';
 
@@ -16,8 +16,15 @@ export class BalanceListComponent {
   @Input()
   keys:any = []
 
+  @Output()
+  onShow = new EventEmitter<any>
+
   checkType(checked:boolean, result:string, def:string) {
     return checked ? result : def;
+  }
+
+  showDetail(data:any) {
+    this.onShow.emit(data)
   }
 
 }

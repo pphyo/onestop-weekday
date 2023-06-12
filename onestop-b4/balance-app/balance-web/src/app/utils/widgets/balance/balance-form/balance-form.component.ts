@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { balanceType } from 'src/app/services/data';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -15,8 +15,10 @@ export class BalanceFormComponent {
 
   balType = balanceType
   form:FormGroup
-  selectedType:any = 'Expense'
-  date = new Date
+  selectedType = 'Expense'
+
+  @Input()
+  creation:any
 
   accList:any = []
   incList:any = []
@@ -34,36 +36,59 @@ export class BalanceFormComponent {
     this.catService.findByType('Income').subscribe(result => this.incList = result)
     this.catService.findByType('Expense').subscribe(result => this.expList = result)
 
-    this.form = builder.group({
-      accountFrom: ['', Validators.required],
-      accountTo: '',
-      category: '',
-      amount: [0, Validators.required],
-      note: '',
-      createAt: ''
-    })
+    this.form = this.validateForm()
+  }
+
+  @Input()
+  set editData(data:any) {
+    this.initForm()
+
+    if(data?.id)
+      this.form.patchValue(data)
+
+    this.creation = data?.creation
+    this.selectedType = data?.type ? data?.type : 'Expense'
   }
 
   save() {
-    let value = {...this.form.value, type: this.selectedType}
+    let value = {...this.form.value, type: this.selectedType, creation: this.creation}
     this.onSave.emit(value)
     this.initForm()
   }
 
   selectType(type:any) {
     this.selectedType = type
+
+    this.form = this.validateForm()
+  }
+
+  validateForm() {
+    return this.builder.group({
+      id: 0,
+      accountFrom: ['', Validators.required],
+      accountTo: this.selectedType == 'Transfer' ? ['', Validators.required] : '',
+      category: this.selectedType == 'Transfer' ? '' : ['', Validators.required],
+      amount: [0, Validators.min(1)],
+      note: '',
+      creation: ''
+    })
   }
 
   initForm() {
-    this.selectedType = undefined
+    this.selectedType = 'Expense'
     this.form.patchValue({
+      id: 0,
       accountFrom: '',
       accountTo: '',
       category: '',
       amount: 0,
       note: '',
-      createAt: ''
+      creation: ''
     })
+  }
+
+  transferCheck() {
+    return this.form.get('accountFrom')?.value && this.form.get('accountTo')?.value && this.form.get('accountFrom')?.value == this.form.get('accountTo')?.value
   }
 
 }

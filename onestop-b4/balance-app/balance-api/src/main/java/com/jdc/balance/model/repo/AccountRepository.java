@@ -12,4 +12,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 	@Query("select sum(a.initialAmount) from Account a")
 	Optional<Long> getTotalAmount();
 	
+	Optional<Account> findByName(String name);
+	
 }

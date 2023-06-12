@@ -5,14 +5,15 @@ import java.time.LocalDateTime;
 import com.jdc.balance.model.entity.Balance.BalanceType;
 
 public record BalanceListDto(
+		int id,
 		LocalDateTime creation,
 		BalanceType type,
 		double amount,
-		String categoryName,
+		String category,
 		String categoryIcon,
-		String accountFromName,
+		String accountFrom,
 		String accountFromIcon,
-		String accountToName,
+		String accountTo,
 		String accountToIcon,
 		String note
 		) implements Comparable<BalanceListDto> {

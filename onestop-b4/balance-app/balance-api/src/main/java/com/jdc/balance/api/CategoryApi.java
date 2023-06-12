@@ -27,22 +27,24 @@ import com.jdc.balance.model.service.ParserService;
 @RestController
 @RequestMapping("categories")
 public class CategoryApi {
-	
+
 	@Autowired
 	private CategoryService service;
-	
+
 	@Autowired
 	private ParserService parserService;
-	
+
 	@PostMapping
 	CategoryDto create(
 			@Validated
 			@RequestBody
 			CategoryForm form,
 			BindingResult result) {
+
 		if(result.hasErrors()) {
 			throw new BalanceApiException(result.getFieldErrors());
 		}
+
 		return service.save(form);
 	}
 	
@@ -87,7 +89,3 @@ public class CategoryApi {
 	}
 
 }
-
-
-
-

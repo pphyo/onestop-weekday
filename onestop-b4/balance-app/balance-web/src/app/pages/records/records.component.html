@@ -5,7 +5,8 @@
 </div>
 
 <div class="row mt-4 align-items-center">
-  <app-balance-list class="col" [balances]="balances" [keys]="keys"></app-balance-list>
+  <app-balance-list class="col" (onShow)="showDetail($event)" [balances]="balances" [keys]="keys"></app-balance-list>
 </div>
 
-<app-balance-form (onSave)="save($event)"></app-balance-form>
+<app-balance-form [editData]="detailData" [creation]="creation" (onSave)="save($event)"></app-balance-form>
+<app-balance-detail (onEdit)="edit($event)" (onRemove)="remove($event)" [data]="detailData"></app-balance-detail>

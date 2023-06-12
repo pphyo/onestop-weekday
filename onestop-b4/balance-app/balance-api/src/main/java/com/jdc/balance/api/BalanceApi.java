@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +32,7 @@ public class BalanceApi {
 	private BalanceService service;
 	
 	@PostMapping
-	public BalanceDto save(@Validated @RequestBody BalanceForm form, BindingResult result) {
+	BalanceDto save(@Validated @RequestBody BalanceForm form, BindingResult result) {
 		
 		if(result.hasErrors())
 			throw new BalanceApiException(result.getFieldErrors());
@@ -38,14 +40,28 @@ public class BalanceApi {
 		return service.save(form);
 	}
 	
+	@PutMapping("{id}")
+	BalanceDto update(@PathVariable int id, @Validated @RequestBody BalanceForm form, BindingResult result) {
+		
+		if(result.hasErrors())
+			throw new BalanceApiException(result.getFieldErrors());
+		
+		return service.update(id, form);
+	}
+	
 	@GetMapping("{date}")
-	public Map<LocalDate, List<BalanceListDto>> searchInSpecificMonth(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+	Map<LocalDate, List<BalanceListDto>> searchInSpecificMonth(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
 		return service.getBalanceInDayInMonth(date);
 	}
 	
 	@GetMapping("type/{type}")
-	public double findExpenseAmount(@PathVariable BalanceType type) {
+	double findExpenseAmount(@PathVariable BalanceType type) {
 		return service.findTotalExpense(type).orElse(0.0);
+	}
+	
+	@DeleteMapping("{id}")
+	void delete(@PathVariable int id) {
+		service.delete(id);
 	}
 
 }

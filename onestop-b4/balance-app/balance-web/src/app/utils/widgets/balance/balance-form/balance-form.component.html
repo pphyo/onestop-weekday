@@ -4,7 +4,8 @@
       <div class="modal-header">
         <h4 class="text-primary"><i [class]="form.get('id')?.value ? 'bi bi-pencil-square' : 'bi bi-plus-square'"></i>
           {{form.get('id')?.value ? 'Edit Record' : 'Add New Record' }}</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button (click)="initForm()" type="button" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
       </div>
 
       <form [formGroup]="form">
@@ -21,10 +22,11 @@
           <div class="row mb-2">
 
             <div class="col">
-              <label for="accountFrom" class="form-label">{{selectedType == 'Transfer' ? 'From' : 'Account'}}</label>
+              <label for="accountFrom" class="form-label">{{selectedType == 'Transfer' ? 'From' :
+                'Account'}}</label>
               <select formControlName="accountFrom" id="accountFrom" class="form-control">
                 <option value="">Select Account</option>
-                <option *ngFor="let acc of accList" [value]="acc.id">{{acc.name}}</option>
+                <option *ngFor="let acc of accList">{{acc.name}}</option>
               </select>
             </div>
 
@@ -32,18 +34,22 @@
               <label class="form-label">{{selectedType == 'Transfer' ? 'To' : 'Category'}}</label>
               <select *ngIf="selectedType == 'Transfer'" formControlName="accountTo" class="form-control">
                 <option value="">Select Account</option>
-                <option *ngFor="let acc of accList" [value]="acc.id">{{acc.name}}</option>
-              </select>
-              <select *ngIf="selectedType == 'Income'" formControlName="category" class="form-control">
-                <option value="">Select Category</option>
-                <option *ngFor="let inc of incList" [value]="inc.id">{{inc.name}}</option>
+                <option *ngFor="let acc of accList" [value]="acc.name">{{acc.name}}</option>
               </select>
               <select *ngIf="selectedType == 'Expense'" formControlName="category" class="form-control">
                 <option value="">Select Category</option>
-                <option *ngFor="let exp of expList" [value]="exp.id">{{exp.name}}</option>
+                <option *ngFor="let exp of expList" [value]="exp.name">{{exp.name}}</option>
+              </select>
+              <select *ngIf="selectedType == 'Income'" formControlName="category" class="form-control">
+                <option value="">Select Category</option>
+                <option *ngFor="let inc of incList" [value]="inc.name">{{inc.name}}</option>
               </select>
             </div>
 
+          </div>
+
+          <div class="mx-1 row alert alert-warning" *ngIf="transferCheck()">
+            Transfer Account are same. Choose different Account
           </div>
 
           <div class="row mb-2">
@@ -62,16 +68,17 @@
           </div>
 
           <div class="row justify-content-center">
-            {{date | date:'yyyy-MM-dd h:mm a'}}
+            {{creation | date:'yyyy-MM-dd h:mm a'}}
           </div>
 
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i>
+          <button (click)="initForm()" type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i
+              class="bi bi-x-lg"></i>
             Cancel</button>
-          <button [class.disabled]="!form.valid" (click)="save()" type="submit" class="btn btn-primary"><i
-              class="bi bi-save"></i>
+          <button [class.disabled]="!form.valid || transferCheck()" (click)="save()" type="submit"
+            class="btn btn-primary"><i class="bi bi-save"></i>
             Save</button>
         </div>
       </form>

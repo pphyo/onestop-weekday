@@ -38,8 +38,16 @@ public class BalanceService {
 	private CategoryRepository categoryRepo;
 
 	public BalanceDto save(@Valid BalanceForm form) {
+		return BalanceDto.from(balanceRepo.save(transferBalance(0, form)));
+	}
 
-		var b = new Balance();
+	private Balance transferBalance(int id, BalanceForm form) {
+		Balance b = null;
+		
+		if(id == 0)
+			b = new Balance();
+		else
+			b = balanceRepo.findById(id).orElseThrow();
 
 		b.setType(form.type());
 		b.setAmount(form.amount());
@@ -51,7 +59,7 @@ public class BalanceService {
 		b.setAccountFrom(from);
 
 		// get category
-		var category = categoryRepo.findById(form.category()).orElse(null);
+		var category = categoryRepo.findByName(form.category()).orElse(null);
 
 		if (form.type() == BalanceType.Income) {
 
@@ -76,16 +84,20 @@ public class BalanceService {
 				b.setCategory(category);
 			}
 		}
-
-		return BalanceDto.from(balanceRepo.save(b));
+		return b;
 	}
 
-	private Account getAccount(int id) {
-		return accountRepo.findById(id).orElseThrow(() -> {
-			throw new BalanceApiException("Finding account error with %d".formatted(id));
+	private Account getAccount(String name) {
+		return accountRepo.findByName(name).orElseThrow(() -> {
+			throw new BalanceApiException("Finding account error with %s".formatted(name));
 		});
 	}
 
+	public BalanceDto update(int id, BalanceForm form) {
+		revertAmount(id);
+		return BalanceDto.from(transferBalance(id, form));
+	}
+	
 	@Transactional(readOnly = true)
 	public Optional<Double> findTotalExpense(BalanceType type) {
 		return balanceRepo.findTotalExpense(type);
@@ -93,6 +105,7 @@ public class BalanceService {
 
 	@Transactional(readOnly = true)
 	public Map<LocalDate, List<BalanceListDto>> getBalanceInDayInMonth(LocalDate date) {
+		
 		var result = new HashMap<LocalDate, List<BalanceListDto>>();
 
 		var dtoList = balanceRepo.getBalanceInMonth().stream().sorted().toList();
@@ -101,21 +114,49 @@ public class BalanceService {
 		var ldList = balanceRepo.findDaysInMonth().stream().map(ldt -> ldt.toLocalDate()).distinct().sorted((a, b) -> b.compareTo(a)).toList();
 
 		for (var ld : ldList) {
+
 			var list = new ArrayList<BalanceListDto>();
 
-			for (var dto : dtoList) {				
+			if(ld.getYear() == date.getYear() && ld.getMonthValue() == date.getMonthValue()) {
+				
+				for (var dto : dtoList) {				
 
-				if (ld.isEqual(date)) {
-					list.add(dto);
-					result.put(ld, list);
+					if (dto.creation().toLocalDate().isEqual(ld)) {
+						list.add(dto);
+						result.put(ld, list);
+					}
+
 				}
-
 			}
 			
 
 		}
 
 		return result;
+	}
+
+	public void delete(int id) {
+		revertAmount(id);
+		balanceRepo.deleteById(id);		
+	}
+
+	private void revertAmount(int id) {
+
+		var bal = balanceRepo.findById(id).orElseThrow(() -> {throw new BalanceApiException("No record found with %d".formatted(id));});
+		var from = bal.getAccountFrom();
+		
+		if(bal.getType() == BalanceType.Income) {
+			from.setInitialAmount(from.getInitialAmount() - bal.getAmount());
+		} else {
+						
+			from.setInitialAmount(from.getInitialAmount() + bal.getAmount());
+			
+			if(bal.getType() == BalanceType.Transfer) {
+				var to = bal.getAccountTo();
+				to.setInitialAmount(to.getInitialAmount() - bal.getAmount());
+			}
+
+		}
 	}
 
 }

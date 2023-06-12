@@ -21,7 +21,7 @@ public interface BalanceRepository extends JpaRepository<Balance, Integer> {
 	List<LocalDateTime> findDaysInMonth();
 	
 	@Query(value = """
-			select NEW com.jdc.balance.model.dto.BalanceListDto(b.createdAt, b.type, 
+			select NEW com.jdc.balance.model.dto.BalanceListDto(b.id, b.createdAt, b.type, 
 			b.amount, b.category.name, b.category.icon, b.accountFrom.name, b.accountFrom.icon,
 			b.accountTo.name, b.accountTo.icon, b.note) from Balance b join b.accountFrom
 			left join b.accountTo left join b.category

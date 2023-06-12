@@ -9,5 +9,5 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'The Balance';
+  title = 'Money Tracker';
 }

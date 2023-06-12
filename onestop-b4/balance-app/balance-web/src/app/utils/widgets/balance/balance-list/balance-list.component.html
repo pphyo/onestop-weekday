@@ -10,10 +10,10 @@
         <i [ngClass]="bal.categoryIcon"
           class="fs-2 me-3 {{checkType(bal.type == 'Income', 'text-success', 'text-danger')}}"></i>
         <div class="w-100">
-          <a href="#"
-            class="fs-5 link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">{{bal.categoryName}}</a><br>
+          <a (click)="showDetail(bal)"
+            class="header-link fs-5 link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">{{bal.category}}</a><br>
           <img class="me-1 img-fluid" [src]="bal.accountFromIcon" width="20" height="20">
-          <span>{{bal.accountFromName}}</span>
+          <span>{{bal.accountFrom}}</span>
         </div>
         <span [ngClass]="checkType(bal.type == 'Income', 'text-success', 'text-danger')">
           {{checkType(bal.type == 'Income', '$', '-$')}}{{bal.amount | number:'1.2'}}
@@ -23,13 +23,13 @@
       <div *ngIf="bal.type == 'Transfer'" class="box d-flex align-items-center border p-3">
         <i class="fs-2 me-3 fa-solid fa-right-left text-primary"></i>
         <div class="w-100">
-          <a href="#"
-            class="fs-5 link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Transfer</a><br>
+          <a (click)="showDetail(bal)"
+            class="header-link fs-5 link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Transfer</a><br>
           <img class="me-1 img-fluid" [src]="bal.accountFromIcon" width="20" height="20">
-          <span class="me-1">{{bal.accountFromName}}</span>
+          <span class="me-1">{{bal.accountFrom}}</span>
           <i class="fa-solid fa-arrow-right text-warning me-1"></i>
           <img class="me-1 img-fluid" [src]="bal.accountToIcon" width="20" height="20">
-          <span>{{bal.accountToName}}</span>
+          <span>{{bal.accountTo}}</span>
         </div>
         <span class="text-primary">
           ${{bal.amount | number:'1.2'}}
