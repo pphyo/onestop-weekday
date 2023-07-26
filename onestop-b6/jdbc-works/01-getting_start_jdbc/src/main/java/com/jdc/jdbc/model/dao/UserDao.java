@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jdc.jdbc.model.domain.User;
 
@@ -15,17 +17,77 @@ public class UserDao {
 			insert into users (username, email, password, creation) values
 			(?, ?, ?, ?)
 			""";
-	private static final String COUNT = """
-			select count(*) as result from users
-			""";
-	private static final String SELECT_BY_ID = """
-			select * from users where id = ?
+//	private static final String COUNT = """
+//			select count(*) as result from users
+//			""";
+	private static final String SELECT = """
+			select * from users
 			""";
 	private static final String DELETE = """
 			delete from users where id = ?
 			""";
+	private static final String UPDATE = """
+			update users set username = ?, email = ?, password = ?,
+			creation = ? where id = ?
+			""";
+	
+	public List<User> findAll() {
+		
+		List<User> result = new ArrayList<>();
+		
+		try(var conn = getConnection();
+				var stmt = conn.createStatement()) {
+			
+			var rs = stmt.executeQuery(SELECT);
+			
+			// check data to next record
+			
+			while(rs.next()) {
+				result.add(getUser(rs));
+			}
+				// if data exists, get row value given the column name or index
+//				var id = rs.getInt("id");
+//				var username = rs.getString("username");
+//				var email = rs.getString("email");
+//				var password = rs.getString("password");
+//				var creation = rs.getTimestamp("creation").toLocalDateTime();
+				
+				// convert to user object
+//				var user = new User(id, username, email, password, creation);
+				// add to list
+				// return the list
+						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
+	
+	public void update(User user) {
+		
+		assert(user.getId() > 0);
+		
+		try(var conn = getConnection();
+				var stmt = conn.prepareStatement(UPDATE)) {
+			
+			stmt.setString(1, user.getUsername());
+			stmt.setString(2, user.getEmail());
+			stmt.setString(3, user.getPassword());
+			stmt.setTimestamp(4, Timestamp.valueOf(user.getCreation()));
+			stmt.setInt(5, user.getId());
+			
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+		}
+		
+	}
 	
 	public void delete(int id) {
+		
 		try(var conn = getConnection();
 				var stmt = conn.prepareStatement(DELETE)) {
 			
@@ -40,23 +102,20 @@ public class UserDao {
 	
 	public User findById(int id) {
 		try(var conn = getConnection();
-				var stmt = conn.prepareStatement(SELECT_BY_ID)) {
+				var stmt = conn.prepareStatement(SELECT.concat(" where id = ?"))) {
 			
 			stmt.setInt(1, id);
 			
 			var rs = stmt.executeQuery();
 			
 			while(rs.next()) {
-				var userId = rs.getInt("id");
-				var username = rs.getString("username");
-				var email = rs.getString("email");
-				var password = rs.getString("password");
-				var creation = rs.getTimestamp("creation");
+//				var userId = rs.getInt("id");
+//				var username = rs.getString("username");
+//				var email = rs.getString("email");
+//				var password = rs.getString("password");
+//				var creation = rs.getTimestamp("creation");
 				
-				var user = new User(username, email, password, creation.toLocalDateTime());
-				user.setId(userId);
-				
-				return user;
+				return getUser(rs);
 			}
 			
 		} catch (SQLException e) {
@@ -68,22 +127,24 @@ public class UserDao {
 	
 	public long countAllUser() {
 		
-		try(var conn = getConnection();
-				var stmt = conn.prepareStatement(COUNT)) {
-			
-			ResultSet rs = stmt.executeQuery();
-			
-			while(rs.next()) {
-				var count = rs.getLong("result");
-				
-				return count;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		return findAll().size();
 		
-		return 0;
+//		try(var conn = getConnection();
+//				var stmt = conn.prepareStatement(COUNT)) {
+//			
+//			ResultSet rs = stmt.executeQuery();
+//			
+//			while(rs.next()) {
+//				var count = rs.getLong("result");
+//				
+//				return count;
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return 0;
 		
 	}
 	
@@ -111,6 +172,14 @@ public class UserDao {
 		
 	}
 	
+	private User getUser(ResultSet rs) throws SQLException {
+		return new User(rs.getInt("id"), 
+				rs.getString("username"), 
+				rs.getString("email"), 
+				rs.getString("password"), 
+				rs.getTimestamp("creation").toLocalDateTime());
+	}
+	
 	public void truncate(String... tables) {
 		
 		try(var conn = getConnection();
@@ -131,9 +200,3 @@ public class UserDao {
 	}
 
 }
-
-
-
-
-
-

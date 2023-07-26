@@ -10,6 +10,11 @@ public class User {
 	private String password;
 	private LocalDateTime creation;
 
+	public User(int id, String username, String email, String password, LocalDateTime creation) {
+		this(username, email, password, creation);
+		this.id = id;
+	}
+
 	public User(String username, String email, String password, LocalDateTime creation) {
 		this.username = username;
 		this.email = email;

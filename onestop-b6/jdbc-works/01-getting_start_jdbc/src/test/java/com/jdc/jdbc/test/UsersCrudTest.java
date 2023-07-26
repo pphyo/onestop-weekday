@@ -2,9 +2,13 @@ package com.jdc.jdbc.test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.function.Executable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -88,10 +92,59 @@ public class UsersCrudTest {
 		
 	}
 	
+	@Order(5)
+	@ParameterizedTest
+	@CsvSource("3, zawgyi, zawgyi@gmail.com, zawgyi")
+	void test_for_update(int id, String username, String email, String password) {
+		
+		var user = new User(id, username, email, password, LocalDateTime.now());
+		dao.update(user);
+		
+		var updatedUser = dao.findById(id);
+		
+		assertNotNull(updatedUser);
+		
+		Executable exe = new Executable() {
+			
+			@Override
+			public void execute() throws Throwable {
+				assertEquals(username, updatedUser.getUsername());
+				assertEquals(email, updatedUser.getEmail());
+				assertEquals(password, updatedUser.getPassword());
+			}
+		};
+		
+		assertAll(exe);
+		
+	}
+	
+	@Order(6)
+	@ParameterizedTest
+	@CsvSource("0, sirzaw, zaw.minlwin@gmail.com, minlwin")
+	void test_for_not_update_with_id_zero(int id, String username, String email, String password) {
+		
+		Executable exe = new Executable() {
+			@Override
+			public void execute() throws Throwable {
+				dao.update(new User(username, email, password, LocalDateTime.now()));
+			}
+		};
+		
+		assertThrows(AssertionError.class, exe);		
+		
+	}
+	
+	@Order(7)
+	@ParameterizedTest
+	@ValueSource(ints = 3)
+	void test_for_find_all(int resultCount) {
+		var userList = dao.findAll();
+		
+		assertNotEquals(0, userList.size());
+		assertEquals(3, userList.size());
+	}
+	
 }
-
-
-
 
 
 
