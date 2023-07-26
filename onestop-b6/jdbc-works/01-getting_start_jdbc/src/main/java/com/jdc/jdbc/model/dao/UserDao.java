@@ -1,6 +1,7 @@
 package com.jdc.jdbc.model.dao;
 
-import java.sql.DriverManager;
+import static com.jdc.jdbc.model.util.DbUtil.getConnection;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -9,11 +10,7 @@ import java.time.LocalDateTime;
 import com.jdc.jdbc.model.domain.User;
 
 public class UserDao {
-	
-	private static final String URL = "jdbc:mysql://127.0.0.1:3306/os6_db";
-	private static final String USR = "root";
-	private static final String PWD = "pyaephyo";
-	
+		
 	private static final String INSERT = """
 			insert into users (username, email, password, creation) values
 			(?, ?, ?, ?)
@@ -24,9 +21,25 @@ public class UserDao {
 	private static final String SELECT_BY_ID = """
 			select * from users where id = ?
 			""";
+	private static final String DELETE = """
+			delete from users where id = ?
+			""";
+	
+	public void delete(int id) {
+		try(var conn = getConnection();
+				var stmt = conn.prepareStatement(DELETE)) {
+			
+			stmt.setInt(1, id);
+			
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public User findById(int id) {
-		try(var conn = DriverManager.getConnection(URL, USR, PWD);
+		try(var conn = getConnection();
 				var stmt = conn.prepareStatement(SELECT_BY_ID)) {
 			
 			stmt.setInt(1, id);
@@ -55,7 +68,7 @@ public class UserDao {
 	
 	public long countAllUser() {
 		
-		try(var conn = DriverManager.getConnection(URL, USR, PWD);
+		try(var conn = getConnection();
 				var stmt = conn.prepareStatement(COUNT)) {
 			
 			ResultSet rs = stmt.executeQuery();
@@ -76,7 +89,7 @@ public class UserDao {
 	
 	public int save(User user) {
 				
-		try(var conn = DriverManager.getConnection(URL, USR, PWD);
+		try(var conn = getConnection();
 				var stmt = conn.prepareStatement(INSERT)) {
 			
 			stmt.setString(1, user.getUsername());
@@ -97,5 +110,30 @@ public class UserDao {
 		return 0;
 		
 	}
+	
+	public void truncate(String... tables) {
+		
+		try(var conn = getConnection();
+				var stmt = conn.createStatement()) {
+			
+			stmt.execute("set foreign_key_checks = 0");
+			
+			for(String table : tables) {
+				stmt.execute("truncate table %s".formatted(table));
+			}
+			
+			stmt.execute("set foreign_key_checks = 1");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 }
+
+
+
+
+
+
