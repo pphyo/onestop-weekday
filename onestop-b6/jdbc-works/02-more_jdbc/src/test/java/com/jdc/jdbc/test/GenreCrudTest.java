@@ -1,5 +1,7 @@
 package com.jdc.jdbc.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -28,6 +30,7 @@ public class GenreCrudTest {
 	@MethodSource(value = "getGenreList")
 	void test_for_save_multiple_genres(List<String> genreList) {
 		service.saveAll(genreList);
+		assertEquals(6, service.findAll().size());
 	}
 	
 	static Stream<Arguments> getGenreList() {
