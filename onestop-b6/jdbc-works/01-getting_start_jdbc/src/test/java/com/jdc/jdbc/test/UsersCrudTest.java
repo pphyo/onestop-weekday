@@ -44,7 +44,7 @@ public class UsersCrudTest {
 	void test_for_save_user(String username, String email, 
 			String password, int result) {
 		var user = new User(username, email, password, null);
-		assertEquals(result, dao.save(user));
+		assertEquals(result, dao.save(user));		
 	}
 	
 	@Order(2)
