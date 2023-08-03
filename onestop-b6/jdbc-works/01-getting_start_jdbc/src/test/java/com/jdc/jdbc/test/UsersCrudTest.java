@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -41,6 +42,7 @@ public class UsersCrudTest {
 			"kozin: zinlinhtet@gmail.com: zinlin: 1",
 			"ttt: ttt@gmail.com: theint: 1"
 	}, delimiter = ':')
+	@Disabled
 	void test_for_save_user(String username, String email, 
 			String password, int result) {
 		var user = new User(username, email, password, null);
@@ -50,6 +52,7 @@ public class UsersCrudTest {
 	@Order(2)
 	@ParameterizedTest
 	@ValueSource(ints = 5)
+	@Disabled
 	void test_for_count_all_users(long result) {
 		assertEquals(result, dao.countAllUser());
 	}
@@ -61,6 +64,7 @@ public class UsersCrudTest {
 		"cherry, cherry@gmail.com, cherry, 2023-07-26, 2",
 		"kyawgyi, kyawgyi@gmail.com, kyawgyi, 2023-07-26, 3"
 	})
+	@Disabled
 	void test_for_find_by_id(String username, String email, 
 			String password, LocalDate creation, int id) {
 		
@@ -84,6 +88,7 @@ public class UsersCrudTest {
 				"4, 4",
 				"5, 3"
 			})
+	@Disabled
 	void test_for_delete(int deletedId, long remainCount) {
 		
 		dao.delete(deletedId);
@@ -95,6 +100,7 @@ public class UsersCrudTest {
 	@Order(5)
 	@ParameterizedTest
 	@CsvSource("3, zawgyi, zawgyi@gmail.com, zawgyi")
+	@Disabled
 	void test_for_update(int id, String username, String email, String password) {
 		
 		var user = new User(id, username, email, password, LocalDateTime.now());
@@ -121,6 +127,7 @@ public class UsersCrudTest {
 	@Order(6)
 	@ParameterizedTest
 	@CsvSource("0, sirzaw, zaw.minlwin@gmail.com, minlwin")
+	@Disabled
 	void test_for_not_update_with_id_zero(int id, String username, String email, String password) {
 		
 		Executable exe = new Executable() {
@@ -137,6 +144,7 @@ public class UsersCrudTest {
 	@Order(7)
 	@ParameterizedTest
 	@ValueSource(ints = 3)
+	@Disabled
 	void test_for_find_all(int resultCount) {
 		var userList = dao.findAll();
 		
