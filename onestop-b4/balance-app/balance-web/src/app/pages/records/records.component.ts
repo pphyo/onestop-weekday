@@ -23,7 +23,7 @@ export class RecordsComponent implements OnInit {
   targetDate:any
   creation:any
   detailData:any
-    keys:string[] = []
+  keys:string[] = []
 
   constructor(private service:BalanceService) {}
 
