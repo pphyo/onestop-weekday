@@ -3,6 +3,7 @@ package com.jdc.jpa.model.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -49,6 +50,7 @@ public class Account implements Serializable {
 	@Column(nullable = false, length = 30)
 	private Role role;
 	
+	@Embedded
 	private Security security;
 	
 	public enum Role {

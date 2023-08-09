@@ -17,5 +17,7 @@ public class Security implements Serializable {
 	@Column(columnDefinition = "timestamp")
 	private LocalDateTime creation;
 	private LocalDateTime modification;
+	private int flag;
+	private String problem;
 	
 }
