@@ -7,10 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -34,8 +31,17 @@ public class Contact implements Serializable {
 	private String phone;
 	
 	@OneToOne
-	@JoinTable(name = "contact_customer")
 	private Customer customer;
-
+	
+//	public void setCustomer(Customer customer) {
+//		this.customer = customer;
+//		customer.setContact(this);
+//	}
 
 }
+
+
+
+
+
+
