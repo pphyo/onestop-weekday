@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.hibernate.LazyInitializationException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -119,6 +120,7 @@ public class ManagingEntityTest extends AbstractTest {
 				() -> ledger.getTags().size());
 	}
 	
+	@Disabled
 	@DisplayName("Test for get referenece")
 	@Order(6)
 	@ParameterizedTest

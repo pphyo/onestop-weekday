@@ -1,15 +1,20 @@
 package com.jdc.em.entity;
 
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,9 +24,6 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
-import static javax.persistence.CascadeType.PERSIST;
-import static javax.persistence.CascadeType.MERGE;
-import static javax.persistence.CascadeType.REMOVE;
 
 @Getter
 @Setter
@@ -36,6 +38,7 @@ public class Ledger implements Serializable {
 	private Integer id;
 
 	@Column(nullable = false, unique = true, length = 30)
+	@Basic(optional = false, fetch = FetchType.LAZY)
 	private String name;
 
 	@Column(nullable = false, length = 10)

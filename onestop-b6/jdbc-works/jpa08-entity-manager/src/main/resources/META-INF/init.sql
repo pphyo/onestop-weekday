@@ -22,6 +22,9 @@ insert into transaction (issued_date, issued_user, ledger_id) values ('2023-02-1
 insert into transaction (issued_date, issued_user, ledger_id) values ('2023-05-09', 'Kyaw Khant Zin', 5);
 insert into transaction (issued_date, issued_user, ledger_id) values ('2023-05-20', 'Zaw Han Tun', 6);
 
+insert into account (name, amount) values ('Pyae Phyo', 100000);
+insert into account (name, amount) values ('Min Khant', 100000);
+
 
 
 
