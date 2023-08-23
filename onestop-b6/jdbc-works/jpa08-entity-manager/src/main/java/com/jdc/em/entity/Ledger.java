@@ -51,7 +51,8 @@ public class Ledger implements Serializable {
 	@Column(name = "tag")
 	private List<String> tags;
 	
-	@OneToMany(mappedBy = "ledger", cascade = { PERSIST, MERGE }, orphanRemoval = true )
+	@OneToMany(mappedBy = "ledger", 
+			cascade = { PERSIST, MERGE}, orphanRemoval = true )
 	private List<Transaction> transactions = new ArrayList<>();
 
 	public Ledger() {

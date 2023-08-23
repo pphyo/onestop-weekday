@@ -55,7 +55,7 @@ public class Course implements Serializable {
 	@Column(nullable = false, name = "rating")
 	@MapKeyColumn(name = "key_column", length = 30)
 	private Map<String, Integer> ratings;
-	
+
 	@ElementCollection
 	@CollectionTable(name = "course_item", joinColumns = @JoinColumn(name = "course_id"))
 	private List<CourseItem> items;
