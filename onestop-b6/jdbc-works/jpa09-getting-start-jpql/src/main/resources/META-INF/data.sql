@@ -5,6 +5,9 @@ insert into course (course_name, course_fees, course_duration, level) values ('A
 insert into course (course_name, course_fees, course_duration, level) values ('Flutter', 400000, 5, 1);
 
 insert into objectives (name, course_id) values ('Language Fundamental', 1);
+insert into objectives (name, course_id) values ('Language Fundamental', 1);
+insert into objectives (name, course_id) values ('OOP', 1);
+insert into objectives (name, course_id) values ('OOP', 1);
 insert into objectives (name, course_id) values ('OOP', 1);
 insert into objectives (name, course_id) values ('API', 1);
 insert into objectives (name, course_id) values ('MySQL', 1);

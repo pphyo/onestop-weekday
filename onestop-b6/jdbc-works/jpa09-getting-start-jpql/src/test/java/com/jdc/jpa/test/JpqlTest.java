@@ -3,8 +3,6 @@ package com.jdc.jpa.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -14,16 +12,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import com.jdc.jpql.Course;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-
 @TestMethodOrder(OrderAnnotation.class)
-public class JpqlTest {
-
-	EntityManagerFactory emf;
-	EntityManager em;
-
+public class JpqlTest extends AbstractTest {
+	
 	@Test
 	@Order(1)
 	void test_for_jpql() {
@@ -72,28 +63,19 @@ public class JpqlTest {
 	
 	@ParameterizedTest
 	@Order(4)
-	@CsvSource()
-	void test_for_member_of(int id, long result) {
-		String jpql = "select c from Course c where c member of c.objectives";
+	@CsvSource({
+		"Language Fundamental, 2",
+		"OOP, 3"
+	})
+	void test_for_member_of(String courseName, long result) {
+		String jpql = "select count(c) from Course c where :obj member of c.objectives";
 		
-		var query = em.createQuery(jpql, Course.class);
-//		query.setParameter("obj", id);
+		var query = em.createQuery(jpql, Long.class);
+		query.setParameter("obj", courseName);
 		
 		var queryResult = query.getSingleResult();
 		
-		System.out.println(queryResult);
-	}
-
-	@BeforeEach
-	void setUp() {
-		emf = Persistence.createEntityManagerFactory("jpql");
-		em = emf.createEntityManager();
-	}
-
-	@AfterEach
-	void tearDown() {
-		em.close();
-		emf.close();
+		assertEquals(result, queryResult);
 	}
 
 }
