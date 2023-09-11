@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jdc.weekend</groupId>
-	<artifactId>02-location-api</artifactId>
+	<artifactId>location-api</artifactId>
 	<version>1.0</version>
-	<name>02-location-api</name>
+	<name>location-api</name>
 	<description>Location Endpoint API</description>
 	<properties>
 		<java.version>17</java.version>
