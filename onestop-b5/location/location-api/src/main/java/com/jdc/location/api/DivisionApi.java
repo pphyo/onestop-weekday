@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jdc.location.model.dto.DivisionDTO;
 import com.jdc.location.model.dto.form.DivisionForm;
 import com.jdc.location.model.service.DivisionService;
+import com.jdc.location.model.service.ParserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class DivisionApi {
 	
 	private final DivisionService service;
+	private final ParserService parser;
 	
 	@GetMapping("region")
 	public List<String> getAllRegions() {
@@ -58,5 +62,15 @@ public class DivisionApi {
 			 BindingResult result) {
 
 		return service.update(id, form);
+	}
+	
+	@PostMapping("upload")
+	public long upload(@RequestParam MultipartFile file) {
+		return service.upload(parser.parse(file));
+	}
+	
+	@DeleteMapping("{id}")
+	public Integer delete(@PathVariable int id) {
+		return service.delete(id);
 	}
 }

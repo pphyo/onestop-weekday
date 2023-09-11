@@ -77,4 +77,45 @@ public class DivisionService {
 		}
 		return Specification.where(null);
 	}
+	
+	@Transactional
+	public long upload(List<String> lines) {
+		try {
+			long count = 0;
+			
+			if(!lines.isEmpty()) {
+				for(String line : lines) {
+					var arr = line.split("\t");
+					
+					if(arr.length == 4) {
+						
+						var divisionForm = new DivisionForm(arr[0], arr[1], arr[2], arr[3]);
+						
+						count ++;
+						
+						create(divisionForm);
+					}
+					
+				}
+				
+				return count;
+			}
+			
+		} catch (Exception e) {
+			throw new LocationBusinessException("Invaild file layout!");
+		}
+		return 0L;
+	}
+
+	@Transactional
+	public Integer delete(int id) {
+		var obj = repo.findById(id).orElseThrow(() -> new LocationBusinessException("No division for detele"));
+		
+		if(null != obj) {
+			repo.deleteById(id);
+			return id;
+		}
+		return id;
+	}
+
 }
