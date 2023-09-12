@@ -10,8 +10,10 @@ import com.jdc.location.model.entity.Township;
 import jakarta.validation.constraints.NotBlank;
 
 public record TownshipForm(
-		@NotBlank(message = "Please enter township name.") String name,
-		@NotBlank(message = "Please enter burmese name.") String burmese, 
+		@NotBlank(message = "Please enter township name.")
+		String name,
+		@NotBlank(message = "Please enter burmese name.")
+		String burmese, 
 		int divisionId) {
 
 	public Township entity(Function<Integer, Optional<Division>> divisionResolver) {
