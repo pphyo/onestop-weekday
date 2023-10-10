@@ -46,7 +46,7 @@ public class TownshipApi {
 		return service.create(form);
 	}
 	
-	@PutMapping("id")
+	@PutMapping("{id}")
 	TownshipDTO update(@PathVariable int id, 
 			@Validated @RequestBody TownshipForm form, 
 			BindingResult result) {

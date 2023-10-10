@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.jdc.location.model.LocationBusinessException;
 import com.jdc.location.model.dto.DivisionDTO;
@@ -53,22 +54,22 @@ public class TownshipService {
 
 	public List<TownshipDTO> search(Optional<String> region, Optional<Integer> division, Optional<String> keyword) {
 		Specification<Township> regSpec = 
-			region.isEmpty() ? Specification.where(null) : 
+			region.isPresent() && StringUtils.hasLength(region.get()) ? 
 				(root, query, cb) -> 
-					cb.equal(root.get("region"), region.get());
+					cb.equal(root.get("division").get("region"), region.get()) : Specification.where(null);
 			
 		Specification<Township> divSpec = 
-			division.isEmpty() ? Specification.where(null) : 
+			division.isPresent() && division.get() > 0 ? 
 				(root, query, cb) -> 
-					cb.equal(root.get("division"), division.get());
+					cb.equal(root.get("division").get("id"), division.get()) : Specification.where(null);
 					
 		Specification<Township> kwSpec = 
-			keyword.isEmpty() ? Specification.where(null) : 
+			keyword.isPresent() && StringUtils.hasLength(keyword.get()) ? 
 				(root, query, cb) ->
 					cb.or(
 						cb.like(cb.lower(root.get("name")), keyword.get().toLowerCase().concat("%")),
 						cb.like(root.get("burmese"), keyword.get().concat("%"))
-						);
+						) : Specification.where(null);
 					
 		return repo.findAll(regSpec.and(divSpec).and(kwSpec))
 				.stream().map(t -> 
